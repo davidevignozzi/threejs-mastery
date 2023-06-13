@@ -7,6 +7,7 @@
 body {
     font-family: 'DM Sans', sans-serif;
     overflow-x: hidden;
+    color: #333333;
 }
 
 .wrapper {
@@ -67,7 +68,7 @@ section {
 }
 .hero-button:hover {
     background: #333333;
-    color: white;
+    color: #fdfdfd;
 }
 
 /*
@@ -86,7 +87,7 @@ section {
     line-height: 2.5rem;
 }
 .custom--bg {
-    width: 100%;
+    width: 100vw;
     height: 800px;
     background: #f2ce6e;
     -webkit-transform: skew(20deg);
@@ -95,7 +96,7 @@ section {
     transform: skew(20deg) rotate(21deg);
     position: absolute;
     top: 0;
-    left: 0;
+    left: 10;
 }
 
 /*
@@ -107,7 +108,7 @@ section {
 }
 .customize_button {
     background: #f2ce6e;
-    color: black;
+    color: #333333;
     border: none;
     font-weight: 600;
     border-radius: 50px;
@@ -131,7 +132,7 @@ footer {
 }
 
 .footer_button {
-    background: white;
+    background: #fdfdfd;
     color: #333333;
     border: none;
     border-radius: 50px;
@@ -143,7 +144,7 @@ footer {
 
 .footer_button:hover {
     background: #333333;
-    color: white;
+    color: #fdfdfd;
 }
 
 /* CANVAS */
