@@ -15,6 +15,13 @@ body {
     margin: 0 2rem;
 }
 
+section {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
 /* NAVBAR */
 .nav-bar {
     width: 100%;
@@ -29,6 +36,16 @@ body {
     border: none;
     border-radius: 2rem;
     padding: 0.5rem 1rem;
+}
+
+/* HERO */
+.hero-title {
+    width: 50%;
+    margin-left: 10%;
+}
+.hero-title h1 {
+    font-size: 9rem;
+    line-height: 7rem;
 }
 
 /* CANVAS */
