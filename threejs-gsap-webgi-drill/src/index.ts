@@ -69,27 +69,29 @@ async function setupViewer() {
         tl
             // position
             .to(position, {
-                x: 3.56,
-                y: -3.71,
+                x: 4.56,
+                y: -2.71,
                 z: -5.95,
                 scrollTrigger: {
                     trigger: '#second-section',
                     start: 'top bottom',
                     end: 'top top',
-                    scrub: true
+                    scrub: true,
+                    immediateRender: false
                 },
                 onUpdate
             })
 
             // First Contianer dissolves
             .to('#first-section', {
-                xPercent: '-100%',
+                xPercent: '-150',
                 opacity: 0,
                 scrollTrigger: {
                     trigger: '#second-section',
                     start: 'top bottom',
                     end: 'top top',
-                    scrub: true
+                    scrub: 1,
+                    immediateRender: false
                 },
                 onUpdate
             })
@@ -103,7 +105,42 @@ async function setupViewer() {
                     trigger: '#second-section',
                     start: 'top bottom',
                     end: 'top top',
-                    scrub: true
+                    scrub: true,
+                    immediateRender: false
+                },
+                onUpdate
+            });
+
+        /**
+         * From the 2 section to 3 section
+         */
+        tl
+            // position
+            .to(position, {
+                x: -4.98,
+                y: 0.27,
+                z: 6.56,
+                scrollTrigger: {
+                    trigger: '#third-section',
+                    start: 'top bottom',
+                    end: 'top top',
+                    scrub: true,
+                    immediateRender: false
+                },
+                onUpdate
+            })
+
+            // target
+            .to(target, {
+                x: -1.22,
+                y: -0.33,
+                z: -0.33,
+                scrollTrigger: {
+                    trigger: '#third-section',
+                    start: 'top bottom',
+                    end: 'top top',
+                    scrub: true,
+                    immediateRender: false
                 },
                 onUpdate
             });
