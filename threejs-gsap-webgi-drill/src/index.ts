@@ -63,15 +63,50 @@ async function setupViewer() {
     function setupScrollAnimation() {
         const tl = gsap.timeline();
 
-        // From the first section to second section
-        tl.to(position, {
-            x: 5,
-            duration: 4,
-            onUpdate
-            // scrollTrigger: {
-            //     trigger: '#second-section'
-            // }
-        });
+        /**
+         * From the 1 section to 2 section
+         */
+        tl
+            // position
+            .to(position, {
+                x: 3.56,
+                y: -3.71,
+                z: -5.95,
+                scrollTrigger: {
+                    trigger: '#second-section',
+                    start: 'top bottom',
+                    end: 'top top',
+                    scrub: true
+                },
+                onUpdate
+            })
+
+            // First Contianer dissolves
+            .to('#first-section', {
+                xPercent: '-100%',
+                opacity: 0,
+                scrollTrigger: {
+                    trigger: '#second-section',
+                    start: 'top bottom',
+                    end: 'top top',
+                    scrub: true
+                },
+                onUpdate
+            })
+
+            // target
+            .to(target, {
+                x: -1.05,
+                y: 0.35,
+                z: -0.25,
+                scrollTrigger: {
+                    trigger: '#second-section',
+                    start: 'top bottom',
+                    end: 'top top',
+                    scrub: true
+                },
+                onUpdate
+            });
     }
 
     setupScrollAnimation();
@@ -88,7 +123,7 @@ async function setupViewer() {
 
     viewer.addEventListener('preFrame', () => {
         if (needsUpdate) {
-            camera.positionUpdated(false);
+            camera.positionUpdated(true);
             camera.targetUpdated(true);
             needsUpdate = false;
         }
