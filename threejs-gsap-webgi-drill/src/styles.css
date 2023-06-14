@@ -38,6 +38,12 @@ section {
     border: none;
     border-radius: 2rem;
     padding: 0.5rem 1rem;
+    transition: all 0.8s ease;
+}
+.nav-bar_button:hover {
+    background: #f2ce6e;
+    color: #fdfdfd;
+    cursor: pointer;
 }
 
 /* 
@@ -104,6 +110,7 @@ section {
 */
 .third-section-wrapper {
     width: 50%;
+    margin-left: 10%;
     z-index: 1;
 }
 .customize_button {

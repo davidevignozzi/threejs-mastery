@@ -56,9 +56,6 @@ async function setupViewer() {
     await manager.addFromPath('./assets/drill.glb');
 
     // Add some UI for tweak and testing.
-    const uiPlugin = await viewer.addPlugin(TweakpaneUiPlugin);
-    // Add plugins to the UI to see their settings.
-    uiPlugin.setupPlugins<IViewerPlugin>(TonemapPlugin, CanvasSnipperPlugin);
 
     function setupScrollAnimation() {
         const tl = gsap.timeline();
@@ -98,7 +95,7 @@ async function setupViewer() {
 
             // target
             .to(target, {
-                x: -1.05,
+                x: -1.03,
                 y: 0.35,
                 z: -0.25,
                 scrollTrigger: {
@@ -117,7 +114,7 @@ async function setupViewer() {
         tl
             // position
             .to(position, {
-                x: -4.98,
+                x: -5.98,
                 y: 0.27,
                 z: 6.56,
                 scrollTrigger: {
@@ -132,8 +129,8 @@ async function setupViewer() {
 
             // target
             .to(target, {
-                x: -1.22,
-                y: -0.33,
+                x: -2.5,
+                y: -0.6,
                 z: -0.33,
                 scrollTrigger: {
                     trigger: '#third-section',
