@@ -8,10 +8,8 @@ import {
     SSAOPlugin,
     BloomPlugin,
     GammaCorrectionPlugin,
-    TweakpaneUiPlugin,
     AssetManagerBasicPopupPlugin,
-    CanvasSnipperPlugin,
-    IViewerPlugin
+    CanvasSnipperPlugin
 } from 'webgi';
 
 import { gsap } from 'gsap';
@@ -34,6 +32,11 @@ async function setupViewer() {
     const camera = viewer.scene.activeCamera;
     const position = camera.position;
     const target = camera.target;
+    const sections = document.querySelector('.wrapper') as HTMLElement;
+    const exitButton = document.querySelector('.button-exit') as HTMLElement;
+    const customizeButton = document.querySelector('.customize-button') as HTMLElement;
+    const mainContainer = document.getElementById('webgi-canvas-container') as HTMLElement;
+    const customizerInterface = document.querySelector('.customizer-container') as HTMLElement;
 
     // Add a popup(in HTML) with download progress when any asset is downloading.
     await viewer.addPlugin(AssetManagerBasicPopupPlugin);
@@ -129,8 +132,8 @@ async function setupViewer() {
 
             // target
             .to(target, {
-                x: -2.5,
-                y: -0.6,
+                x: -2,
+                y: -0.4,
                 z: -0.33,
                 scrollTrigger: {
                     trigger: '#third-section',
@@ -173,11 +176,41 @@ async function setupViewer() {
     });
 
     // Footer to Top
-    document.querySelectorAll('.footer_button')?.forEach((item) => {
+    document.querySelectorAll('.footer-button')?.forEach((item) => {
         item.addEventListener('click', () => {
             window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
         });
     });
+
+    // CUSTOMIZE
+    customizeButton.addEventListener('click', () => {
+        sections.style.display = 'none';
+        mainContainer.style.pointerEvents = 'all';
+        document.body.style.cursor = 'grab';
+        gsap.to(position, {
+            x: -2.6,
+            y: -0.5,
+            z: -9.6,
+            duration: 2,
+            ease: 'power3.inOut',
+            onUpdate
+        });
+        gsap.to(target, {
+            x: -0.15,
+            y: 0.25,
+            z: 0.12,
+            duration: 2,
+            ease: 'power3.inOut',
+            onUpdate,
+            onComplete: enableControlers
+        });
+    });
+
+    function enableControlers() {
+        exitButton.style.display = 'block';
+        customizerInterface.style.display = 'block';
+        viewer.scene.activeCamera.setCameraOptions({ controlsEnabled: true });
+    }
 }
 
 setupViewer();

@@ -32,7 +32,7 @@ section {
     align-content: space-between;
     margin: 2rem 2rem 0 2rem;
 }
-.nav-bar_button {
+.nav-bar-button {
     background-color: #333333;
     color: #fdfdfd;
     border: none;
@@ -40,7 +40,7 @@ section {
     padding: 0.5rem 1rem;
     transition: all 0.8s ease;
 }
-.nav-bar_button:hover {
+.nav-bar-button:hover {
     background: #f2ce6e;
     color: #fdfdfd;
     cursor: pointer;
@@ -114,7 +114,7 @@ section {
     margin-left: 10%;
     z-index: 1;
 }
-.customize_button {
+.customize-button {
     background: #f2ce6e;
     color: #333333;
     border: none;
@@ -126,6 +126,10 @@ section {
     font-size: 0.6rem;
     cursor: pointer;
     transition: all 0.8s ease;
+}
+.customize-button:hover {
+    background: #333333;
+    color: #fdfdfd;
 }
 
 /* 
@@ -139,7 +143,7 @@ footer {
     padding: 70px;
 }
 
-.footer_button {
+.footer-button {
     background: #fdfdfd;
     color: #333333;
     border: none;
@@ -150,9 +154,62 @@ footer {
     transition: all 0.8s ease;
 }
 
-.footer_button:hover {
+.footer-button:hover {
     background: #333333;
     color: #fdfdfd;
+}
+
+/**
+    CUSTOMIZATION SECTION
+*/
+.button-exit {
+    width: 90px;
+    margin-bottom: 15%;
+    margin-left: 2.5%;
+    z-index: 5;
+    position: fixed;
+    bottom: 0;
+    display: none;
+}
+
+.customizer-container {
+    position: fixed;
+    top: 50%;
+    left: 5%;
+    display: none;
+    transform: translateY(-50%);
+}
+
+.strap-colors {
+    list-style: none;
+}
+
+.button-colors {
+    width: 30px;
+    height: 30px;
+    border-radius: 50px;
+    border: 1px solid white;
+    padding: 0;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.8s ease;
+}
+
+.button-colors:hover {
+    filter: drop-shadow(0 0 0.75rem rgba(28, 17, 52, 0.704));
+    transform: scale(1.5);
+}
+
+.yellow {
+    background-color: #f0d56c;
+}
+
+.red {
+    background-color: rgb(231, 34, 34);
+}
+
+.black {
+    background-color: rgb(74, 76, 79);
 }
 
 /* CANVAS */
