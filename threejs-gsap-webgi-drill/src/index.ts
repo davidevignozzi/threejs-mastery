@@ -200,23 +200,35 @@ async function setupViewer() {
         sections.style.display = 'none';
         mainContainer.style.pointerEvents = 'all';
         document.body.style.cursor = 'grab';
-        gsap.to(position, {
-            x: -2.6,
-            y: -0.5,
-            z: -9.6,
-            duration: 2,
-            ease: 'power3.inOut',
-            onUpdate
-        });
-        gsap.to(target, {
-            x: -0.15,
-            y: 0.25,
-            z: 0.12,
-            duration: 2,
-            ease: 'power3.inOut',
-            onUpdate,
-            onComplete: enableControlers
-        });
+        gsap.fromTo(
+            position,
+            {
+                x: -5.98,
+                y: 0.27,
+                z: 6.56
+            },
+            {
+                x: -2.6,
+                y: -0.5,
+                z: -9.6,
+                duration: 2,
+                ease: 'power3.inOut',
+                onUpdate
+            }
+        );
+        gsap.fromTo(
+            target,
+            { x: -2, y: -0.4, z: -0.33 },
+            {
+                x: -0.15,
+                y: 0.25,
+                z: 0.12,
+                duration: 2,
+                ease: 'power3.inOut',
+                onUpdate,
+                onComplete: enableControlers
+            }
+        );
     });
 
     function enableControlers() {
