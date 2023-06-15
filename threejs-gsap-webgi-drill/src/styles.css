@@ -7,6 +7,8 @@
 body {
     font-family: 'DM Sans', sans-serif;
     overflow-x: hidden;
+    overscroll-behavior: none;
+    overflow-y: hidden;
     color: #333333;
 }
 
@@ -22,6 +24,31 @@ section {
     height: 100vh;
     display: flex;
     align-items: center;
+}
+
+/* LOADER */
+.loader {
+    background: #333333;
+    color: #fdfdfd;
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.progress {
+    position: absolute;
+    top: 52%;
+    height: 1px;
+    width: 100%;
+    transform: scaleX(0);
+    background-color: #fdfdfd;
+    transition: all 1s ease;
 }
 
 /* NAVBAR */

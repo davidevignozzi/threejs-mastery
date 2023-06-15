@@ -10,6 +10,7 @@ import {
     GammaCorrectionPlugin,
     AssetManagerBasicPopupPlugin,
     CanvasSnipperPlugin,
+    AssetImporter,
     MeshBasicMaterial2,
     Color
 } from 'webgi';
@@ -54,6 +55,34 @@ async function setupViewer() {
     await viewer.addPlugin(SSRPlugin);
     await viewer.addPlugin(SSAOPlugin);
     await viewer.addPlugin(BloomPlugin);
+
+    /**
+     * Loader
+     */
+    // Loader
+    const importer = manager.importer as AssetImporter;
+
+    importer.addEventListener('onProgress', (ev) => {
+        const progressRatio = ev.loaded / ev.total;
+        // console.log(progressRatio)
+        document
+            .querySelector('.progress')
+            ?.setAttribute('style', `transform: scaleX(${progressRatio})`);
+    });
+
+    importer.addEventListener('onLoad', (ev) => {
+        gsap.to('.loader', {
+            x: '100%',
+            duration: 0.8,
+            ease: 'power4.inOut',
+            delay: 1,
+            onComplete: () => {
+                document.body.style.overflowY = 'auto';
+            }
+        });
+    });
+
+    viewer.renderer.refreshPipeline();
 
     // Add more plugins not available in base, like CanvasSnipperPlugin which has helpers to download an image of the canvas.
     await viewer.addPlugin(CanvasSnipperPlugin);
