@@ -9,7 +9,9 @@ import {
     BloomPlugin,
     GammaCorrectionPlugin,
     AssetManagerBasicPopupPlugin,
-    CanvasSnipperPlugin
+    CanvasSnipperPlugin,
+    MeshBasicMaterial2,
+    Color
 } from 'webgi';
 
 import { gsap } from 'gsap';
@@ -31,12 +33,13 @@ async function setupViewer() {
 
     const camera = viewer.scene.activeCamera;
     const position = camera.position;
-    console.log('🚀 ~ setupViewer ~ position:', position);
     const target = camera.target;
-    console.log('🚀 ~ setupViewer ~ target:', target);
     const sections = document.querySelector('.wrapper') as HTMLElement;
     const exitButton = document.querySelector('.button-exit') as HTMLElement;
     const customizeButton = document.querySelector('.customize-button') as HTMLElement;
+    const blackButton = document.querySelector('.button-colors.black');
+    const redButton = document.querySelector('.button-colors.red');
+    const yellowButton = document.querySelector('.button-colors.yellow');
     const mainContainer = document.getElementById('webgi-canvas-container') as HTMLElement;
     const customizerInterface = document.querySelector('.customizer-container') as HTMLElement;
 
@@ -60,7 +63,12 @@ async function setupViewer() {
 
     await manager.addFromPath('./assets/drill.glb');
 
-    // Add some UI for tweak and testing.
+    /**
+     * Materials
+     */
+    const drillMaterial = manager.materials!.findMaterialsByName(
+        'Drill_01'
+    )[0] as MeshBasicMaterial2;
 
     function setupScrollAnimation() {
         const tl = gsap.timeline();
@@ -243,6 +251,30 @@ async function setupViewer() {
         exitButton.style.display = 'none';
         customizerInterface.style.display = 'none';
     });
+
+    /**
+     * CUSTOMIZATION => CHANGE MATEIRAL COLOR
+     *
+     */
+    // Black
+    blackButton?.addEventListener('click', () => {
+        changeColor(new Color(0x383830).convertSRGBToLinear());
+    });
+
+    // Red
+    redButton?.addEventListener('click', () => {
+        changeColor(new Color(0xfe2d2d).convertSRGBToLinear());
+    });
+
+    // Yellow
+    yellowButton?.addEventListener('click', () => {
+        changeColor(new Color(0xffffff).convertSRGBToLinear());
+    });
+
+    function changeColor(_colorToBeChanged: Color) {
+        drillMaterial.color = _colorToBeChanged;
+        viewer.scene.setDirty();
+    }
 }
 
 setupViewer();
