@@ -84,6 +84,7 @@ section {
     justify-content: flex-end;
 }
 .second-section-wrapper {
+    margin-right: 10%;
     width: 50%;
     z-index: 1;
 }

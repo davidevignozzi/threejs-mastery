@@ -162,6 +162,22 @@ async function setupViewer() {
             needsUpdate = false;
         }
     });
+
+    /**
+     * Scroll Events
+     */
+    // Hero to Second
+    document.querySelector('.hero-button')?.addEventListener('click', () => {
+        const element = document.querySelector('#second-section');
+        window.scrollTo({ top: element?.getBoundingClientRect().top, left: 0, behavior: 'smooth' });
+    });
+
+    // Footer to Top
+    document.querySelectorAll('.footer_button')?.forEach((item) => {
+        item.addEventListener('click', () => {
+            window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+        });
+    });
 }
 
 setupViewer();
