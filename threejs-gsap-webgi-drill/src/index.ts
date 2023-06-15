@@ -31,7 +31,9 @@ async function setupViewer() {
 
     const camera = viewer.scene.activeCamera;
     const position = camera.position;
+    console.log('🚀 ~ setupViewer ~ position:', position);
     const target = camera.target;
+    console.log('🚀 ~ setupViewer ~ target:', target);
     const sections = document.querySelector('.wrapper') as HTMLElement;
     const exitButton = document.querySelector('.button-exit') as HTMLElement;
     const customizeButton = document.querySelector('.customize-button') as HTMLElement;
@@ -98,7 +100,7 @@ async function setupViewer() {
 
             // target
             .to(target, {
-                x: -1.03,
+                x: -1.5,
                 y: 0.35,
                 z: -0.25,
                 scrollTrigger: {
@@ -182,7 +184,10 @@ async function setupViewer() {
         });
     });
 
-    // CUSTOMIZE
+    /**
+     * CUSTOMIZER
+     */
+    // ENTER CUSTOMIZE
     customizeButton.addEventListener('click', () => {
         sections.style.display = 'none';
         mainContainer.style.pointerEvents = 'all';
@@ -211,6 +216,33 @@ async function setupViewer() {
         customizerInterface.style.display = 'block';
         viewer.scene.activeCamera.setCameraOptions({ controlsEnabled: true });
     }
+
+    // EXIT CUSTOMIZER
+    exitButton.addEventListener('click', () => {
+        gsap.to(position, {
+            x: -3.066,
+            y: -0.584,
+            z: 1.752,
+            duration: 1,
+            ease: 'power3.inOut',
+            onUpdate
+        });
+        gsap.to(target, {
+            x: -1.542,
+            y: 0.909,
+            z: -0.298,
+            duration: 1,
+            ease: 'power3.inOut',
+            onUpdate
+        });
+
+        viewer.scene.activeCamera.setCameraOptions({ controlsEnabled: false });
+        sections.style.display = 'block';
+        mainContainer.style.pointerEvents = 'none';
+        document.body.style.cursor = 'default';
+        exitButton.style.display = 'none';
+        customizerInterface.style.display = 'none';
+    });
 }
 
 setupViewer();
