@@ -6,6 +6,7 @@ import {
     TonemapPlugin,
     SSRPlugin,
     SSAOPlugin,
+    mobileAndTabletCheck,
     BloomPlugin,
     GammaCorrectionPlugin,
     AssetManagerBasicPopupPlugin,
@@ -28,6 +29,12 @@ async function setupViewer() {
         canvas: document.getElementById('webgi-canvas') as HTMLCanvasElement,
         useRgbm: false
     });
+
+    /**
+     * Check if Mobile
+     */
+    const isMobile = mobileAndTabletCheck();
+    // console.log('🚀 ~ setupViewer ~ isMobile:', isMobile);
 
     // Add some plugins
     const manager = await viewer.addPlugin(AssetManagerPlugin);
@@ -93,6 +100,21 @@ async function setupViewer() {
     await manager.addFromPath('./assets/drill.glb');
 
     /**
+     * Mobile Setup
+     */
+    viewer.getPlugin(TonemapPlugin)!.config!.clipBackground = true; // in case its set to false in the glb
+
+    viewer.scene.activeCamera.setCameraOptions({ controlsEnabled: false });
+
+    if (isMobile) {
+        position.set(-3.5, 0, 5.5);
+        target.set(-0.5, 0.25, -0.2);
+        camera.setCameraOptions({ fov: 40 });
+    }
+
+    window.scrollTo(0, 0);
+
+    /**
      * Materials
      */
     const drillMaterial = manager.materials!.findMaterialsByName(
@@ -108,9 +130,9 @@ async function setupViewer() {
         tl
             // position
             .to(position, {
-                x: 4.56,
-                y: -2.71,
-                z: -5.95,
+                x: isMobile ? 5 : 4.56,
+                y: isMobile ? -2 : -2.71,
+                z: isMobile ? -5.95 : -5.95,
                 scrollTrigger: {
                     trigger: '#second-section',
                     start: 'top bottom',
@@ -137,9 +159,9 @@ async function setupViewer() {
 
             // target
             .to(target, {
-                x: -1.5,
-                y: 0.35,
-                z: -0.25,
+                x: isMobile ? -1 : -1.5,
+                y: isMobile ? 0.35 : 0.35,
+                z: isMobile ? 0 : -0.25,
                 scrollTrigger: {
                     trigger: '#second-section',
                     start: 'top bottom',
@@ -171,9 +193,9 @@ async function setupViewer() {
 
             // target
             .to(target, {
-                x: -2,
-                y: -0.4,
-                z: -0.33,
+                x: isMobile ? -1 : -2,
+                y: isMobile ? 0 : -0.4,
+                z: isMobile ? 0 : -0.33,
                 scrollTrigger: {
                     trigger: '#third-section',
                     start: 'top bottom',
@@ -237,9 +259,9 @@ async function setupViewer() {
                 z: 6.56
             },
             {
-                x: -2.6,
-                y: -0.5,
-                z: -9.6,
+                x: isMobile ? -2 : -2.6,
+                y: isMobile ? 0 : -0.5,
+                z: isMobile ? 9 : -9.6,
                 duration: 2,
                 ease: 'power3.inOut',
                 onUpdate
@@ -247,7 +269,12 @@ async function setupViewer() {
         );
         gsap.fromTo(
             target,
-            { x: -2, y: -0.4, z: -0.33 },
+
+            {
+                x: isMobile ? -1 : -2,
+                y: isMobile ? 0 : -0.4,
+                z: isMobile ? 0 : -0.33
+            },
             {
                 x: -0.15,
                 y: 0.25,
@@ -269,17 +296,17 @@ async function setupViewer() {
     // EXIT CUSTOMIZER
     exitButton.addEventListener('click', () => {
         gsap.to(position, {
-            x: -3.066,
-            y: -0.584,
-            z: 1.752,
+            x: isMobile ? -3.5 : -3.066,
+            y: isMobile ? 0 : -0.584,
+            z: isMobile ? 5.5 : 1.752,
             duration: 1,
             ease: 'power3.inOut',
             onUpdate
         });
         gsap.to(target, {
-            x: -1.542,
-            y: 0.909,
-            z: -0.298,
+            x: isMobile ? -0.5 : -1.542,
+            y: isMobile ? 0.25 : 0.909,
+            z: isMobile ? -0.2 : -0.298,
             duration: 1,
             ease: 'power3.inOut',
             onUpdate

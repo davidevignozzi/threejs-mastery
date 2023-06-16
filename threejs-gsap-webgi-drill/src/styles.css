@@ -191,11 +191,11 @@ footer {
 */
 .button-exit {
     width: 90px;
-    margin-bottom: 15%;
-    margin-left: 2.5%;
     z-index: 5;
     position: fixed;
-    bottom: 0;
+    bottom: 30%;
+    left: 6%;
+    transform: translate(-50%, -50%);
     display: none;
 }
 
@@ -301,12 +301,22 @@ footer {
         width: 70%;
     }
 
-    #second-section {
-        align-items: flex-end;
+    #second-section h2 {
+        font-size: 2.5rem;
     }
 
+    #third-section {
+        height: 70vh;
+        align-items: flex-end;
+        padding-bottom: 15%;
+    }
     .third-section-wrapper {
         width: 220px;
         margin-left: 7%;
+    }
+
+    .button-exit {
+        bottom: 10%;
+        left: 50%;
     }
 }
