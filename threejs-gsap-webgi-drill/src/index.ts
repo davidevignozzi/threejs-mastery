@@ -97,7 +97,7 @@ async function setupViewer() {
     // This must be called once after all plugins are added.
     viewer.renderer.refreshPipeline();
 
-    await manager.addFromPath('./assets/drill.glb');
+    await manager.addFromPath('./assets/Drill.glb');
 
     /**
      * Mobile Setup
