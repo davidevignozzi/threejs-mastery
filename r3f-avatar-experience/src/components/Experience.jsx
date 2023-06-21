@@ -1,6 +1,7 @@
 import { OrbitControls } from '@react-three/drei';
 
 import { Avatar } from './Avatar';
+import AvatarController from './AvatarController';
 
 export const Experience = () => {
   return (
@@ -8,7 +9,7 @@ export const Experience = () => {
       <OrbitControls />
 
       <group position-y={-1}>
-        <Avatar />
+        <AvatarController />
       </group>
 
       <ambientLight intensity={1} />

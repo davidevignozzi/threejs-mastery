@@ -17,13 +17,26 @@ export function Avatar(props) {
   /**
    * Walk Animation
    */
-  const { animations: walk } = useFBX('/animations/Walking.fbx');
-  walk[0].name = 'Walk';
+  const { animations: walking } = useFBX('/animations/Walking.fbx');
 
-  const { actions } = useAnimations(walk, group);
+  /**
+   * Standing Animation
+   */
+  const { animations: standing } = useFBX('/animations/Standing.fbx');
+
+  /**
+   * Rename Animations
+   */
+  walking[0].name = 'walking';
+  standing[0].name = 'standing';
+
+  /**
+   * Register Animation
+   */
+  const { actions } = useAnimations([walking[0], standing[0]], group);
 
   useEffect(() => {
-    actions.Walk.reset().play();
+    actions.standing.reset().play();
   }, []);
 
   return (
