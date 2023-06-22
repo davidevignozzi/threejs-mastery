@@ -12,7 +12,7 @@ export const Experience = () => {
   useHelper(dirLight, DirectionalLightHelper, 'red');
   return (
     <>
-      <OrbitControls />
+      {/* <OrbitControls /> */}
 
       <group position-y={0.5}>
         <AvatarController />

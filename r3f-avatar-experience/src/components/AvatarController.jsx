@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from 'react';
-import { Avatar } from './Avatar';
-import { CapsuleCollider, RigidBody } from '@react-three/rapier';
-import { useKeyboardControls } from '@react-three/drei';
+import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
+import { useKeyboardControls } from '@react-three/drei';
+import { CapsuleCollider, RigidBody } from '@react-three/rapier';
+import { Avatar } from './Avatar';
 
 /**
  * Force Power
@@ -26,7 +27,7 @@ const AvatarController = () => {
   /**
    * Apply Forces
    */
-  useFrame(() => {
+  useFrame((state) => {
     const impulse = { x: 0, y: 0, z: 0 };
 
     /**
@@ -94,6 +95,17 @@ const AvatarController = () => {
       const angle = Math.atan2(linvel.x, linvel.z);
       avatar.current.rotation.y = angle;
     }
+
+    /**
+     * CAMERA FOLLOW
+     */
+    const avatarWorldPosition = avatar.current.getWorldPosition(new THREE.Vector3());
+    const targetLookAt = new THREE.Vector3(avatarWorldPosition.x, 0.75, avatarWorldPosition.z);
+
+    state.camera.position.x = avatarWorldPosition.x - 10;
+    state.camera.position.z = avatarWorldPosition.z - 15;
+
+    state.camera.lookAt(targetLookAt);
   });
 
   return (
