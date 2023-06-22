@@ -13,6 +13,7 @@ const MAX_VEL = 3;
 const AvatarController = () => {
   const rigidBody = useRef();
   const avatar = useRef();
+  const isOnFloor = useRef(true);
 
   /**
    * Keyboard Controls
@@ -97,7 +98,17 @@ const AvatarController = () => {
 
   return (
     <group>
-      <RigidBody ref={rigidBody} colliders={false} enabledRotations={[false, false, false]}>
+      <RigidBody
+        ref={rigidBody}
+        colliders={false}
+        enabledRotations={[false, false, false]}
+        onCollisionEnter={() => {
+          isOnFloor.current = true;
+        }}
+        onCollisionExit={() => {
+          isOnFloor.current = false;
+        }}
+      >
         <CapsuleCollider args={[0.675, 0.3]} position={[0.05, 0.975, 0]} />
         <group ref={avatar}>
           <Avatar />
