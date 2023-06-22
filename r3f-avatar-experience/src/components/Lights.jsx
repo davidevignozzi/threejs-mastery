@@ -1,21 +1,26 @@
-import React from 'react';
-import { Environment, Lightformer } from '@react-three/drei';
+import React, { useRef } from 'react';
+import * as THREE from 'three';
+import { useHelper } from '@react-three/drei';
 
-const Lights = () => {
+const Lights = ({ positionZ = 0, color }) => {
+  const light = useRef();
+  useHelper(light, THREE.DirectionalLightHelper, 'red');
+
+  const targetLight = new THREE.Object3D();
+  targetLight.position.x = 0;
+  targetLight.position.y = 0.5;
+  targetLight.position.z = positionZ * 8;
+
   return (
     <>
-      <Environment>
-        <Lightformer
-          position={[-3, 1, -1]}
-          form="circle"
-          scale={5}
-          color="white"
-          intensity={2}
-          castShadow
-        />
-      </Environment>
-
-      <directionalLight position={[-2.5, 2, 5]} intensity={1} castShadow color={'#e3b887'} />
+      <directionalLight
+        ref={light}
+        position={[-2.5, 2, 5 + positionZ * 8]}
+        target={targetLight}
+        intensity={1}
+        castShadow
+        color={color}
+      />
     </>
   );
 };
