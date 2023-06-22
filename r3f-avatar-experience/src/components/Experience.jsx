@@ -5,7 +5,7 @@ import Hall from './Hall';
 export const Experience = () => {
   return (
     <>
-      <OrbitControls />
+      {/* <OrbitControls /> */}
 
       <Hall />
 
