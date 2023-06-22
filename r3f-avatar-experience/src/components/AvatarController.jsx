@@ -102,10 +102,10 @@ const AvatarController = () => {
     const avatarWorldPosition = avatar.current.getWorldPosition(new THREE.Vector3());
     const targetLookAt = new THREE.Vector3(avatarWorldPosition.x, 0.75, avatarWorldPosition.z);
 
-    state.camera.position.x = avatarWorldPosition.x - 10;
-    state.camera.position.z = avatarWorldPosition.z - 15;
+    // state.camera.position.x = avatarWorldPosition.x - 10;
+    // state.camera.position.z = avatarWorldPosition.z - 15;
 
-    state.camera.lookAt(targetLookAt);
+    // state.camera.lookAt(targetLookAt);
   });
 
   return (
@@ -121,8 +121,8 @@ const AvatarController = () => {
           isOnFloor.current = false;
         }}
       >
-        <CapsuleCollider args={[0.675, 0.3]} position={[0.05, 0.975, 0]} />
-        <group ref={avatar}>
+        <CapsuleCollider args={[0.675, 0.3]} position={[-2.05, 0.975, -2.75]} />
+        <group position={[-2.05, 0, -2.75]} ref={avatar}>
           <group rotation-x={-Math.PI / 2}>
             <Avatar />
           </group>
