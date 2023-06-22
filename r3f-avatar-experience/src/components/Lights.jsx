@@ -2,6 +2,10 @@ import React, { useRef } from 'react';
 import * as THREE from 'three';
 import { useHelper } from '@react-three/drei';
 
+/**
+ * In Experience.jsx there is also the environment
+ */
+
 const Lights = ({ positionZ = 0, color }) => {
   const light = useRef();
   useHelper(light, THREE.DirectionalLightHelper, 'red');
