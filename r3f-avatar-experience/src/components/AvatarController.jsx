@@ -111,7 +111,9 @@ const AvatarController = () => {
       >
         <CapsuleCollider args={[0.675, 0.3]} position={[0.05, 0.975, 0]} />
         <group ref={avatar}>
-          <Avatar />
+          <group rotation-x={-Math.PI / 2}>
+            <Avatar />
+          </group>
         </group>
       </RigidBody>
     </group>
