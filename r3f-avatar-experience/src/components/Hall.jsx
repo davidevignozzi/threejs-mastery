@@ -1,44 +1,43 @@
 import React from 'react';
 import * as THREE from 'three';
 import Room from './Room';
-
-const experiences = [
-  // Boolean
-  {
-    name: 'boolean',
-    logo: '/images/booleanLogo.png',
-    time: 'October 2020 - July 2021',
-    type: 'education',
-    roomWallMaterial: new THREE.MeshStandardMaterial({ color: '#ffffff' }),
-    roomGroundMaterial: new THREE.MeshStandardMaterial({ color: '#f0f0f0' }),
-    lightColor: '#d990b8'
-  },
-
-  // Everis
-  {
-    name: 'everis',
-    logo: '',
-    time: 'October 2021 - october 2022',
-    type: 'job',
-    roomWallMaterial: new THREE.MeshStandardMaterial({ color: '#ffffff' }),
-    roomGroundMaterial: new THREE.MeshStandardMaterial({ color: '#f0f0f0' }),
-    lightColor: '#d990b8'
-  }
-];
+import { Text3D, useGLTF } from '@react-three/drei';
+import { RigidBody } from '@react-three/rapier';
 
 const Hall = () => {
+  /**
+   * Models
+   */
+  const firstRoom = useGLTF('/models/RoomStart.glb');
+  // const booleanRoom = useGLTF('/models/RoomBoolean.glb');
+  const booleanRoom = useGLTF('/models/booleanRoom.glb');
+
+  /**
+   * Array of Experiences
+   */
+  const experiences = [
+    // Boolean
+    {
+      position: 1,
+      model: booleanRoom,
+      lightColor: '#d990b8'
+    }
+  ];
+
   return (
     <>
-      {experiences.map((room, i) => {
+      {/* First Cube => Start */}
+      <RigidBody type="fixed">
+        <primitive object={firstRoom.scene} />
+      </RigidBody>
+
+      {experiences.map((room) => {
         return (
           <Room
-            key={i}
-            positionZ={i}
-            roomWallMaterial={room.roomWallMaterial}
-            roomGroundMaterial={room.roomGroundMaterial}
+            key={room.position}
+            positionZ={room.position}
+            model={booleanRoom}
             lightColor={room.lightColor}
-            logo={room.logo}
-            timeline={room.time}
           />
         );
       })}

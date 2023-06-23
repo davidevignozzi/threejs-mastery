@@ -5,9 +5,15 @@ Command: npx gltfjsx@6.2.3 public/models/Avatar.glb
 
 import React, { useEffect, useRef } from 'react';
 import { useAnimations, useFBX, useGLTF } from '@react-three/drei';
+import { useAvatarStore } from '../stores/store';
 
 export function Avatar(props) {
   const group = useRef();
+
+  /**
+   * State
+   */
+  const avatarState = useAvatarStore((state) => state.avatarState);
 
   /**
    * Model
@@ -36,11 +42,14 @@ export function Avatar(props) {
   const { actions } = useAnimations([walking[0], standing[0]], group);
 
   useEffect(() => {
-    actions.standing.reset().play();
-  }, []);
+    actions[avatarState].reset().fadeIn(1).play();
+    return () => {
+      actions[avatarState].fadeOut(0.1);
+    };
+  }, [avatarState]);
 
   return (
-    <group {...props} ref={group} dispose={null}>
+    <group ref={group}>
       <primitive object={nodes.Hips} />
       <skinnedMesh
         geometry={nodes.Wolf3D_Body.geometry}

@@ -5,7 +5,7 @@ import Hall from './Hall';
 export const Experience = () => {
   return (
     <>
-      <OrbitControls />
+      {/* <OrbitControls /> */}
 
       {/* Light */}
       <Environment>
@@ -19,9 +19,9 @@ export const Experience = () => {
         />
       </Environment>
 
-      <Hall />
+      <group position-y={-1}>
+        <Hall />
 
-      <group position-y={0.5}>
         <AvatarController />
       </group>
     </>

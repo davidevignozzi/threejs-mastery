@@ -2,7 +2,7 @@ import { Canvas } from '@react-three/fiber';
 import { Experience } from './components/Experience';
 import { Suspense, useMemo } from 'react';
 import { Physics } from '@react-three/rapier';
-import { KeyboardControls } from '@react-three/drei';
+import { KeyboardControls, Loader } from '@react-three/drei';
 
 /**
  * Keyboard Controls
@@ -32,12 +32,13 @@ function App() {
     <KeyboardControls map={controlsMap}>
       <Canvas shadows camera={{ position: [-15, 7, -15], fov: 30 }}>
         <color attach="background" args={['#ececec']} />
-        <Suspense>
+        <Suspense fallback={null}>
           <Physics debug>
             <Experience />
           </Physics>
         </Suspense>
       </Canvas>
+      <Loader />
     </KeyboardControls>
   );
 }

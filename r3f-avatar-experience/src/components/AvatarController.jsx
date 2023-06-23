@@ -4,17 +4,27 @@ import { useFrame } from '@react-three/fiber';
 import { useKeyboardControls } from '@react-three/drei';
 import { CapsuleCollider, RigidBody } from '@react-three/rapier';
 import { Avatar } from './Avatar';
+import { useAvatarStore } from '../stores/store';
 
 /**
  * Force Power
  */
 const MOVEMENT_SPEED = 0.1;
 const MAX_VEL = 3;
+const RUN_VEL = 1;
 
 const AvatarController = () => {
   const rigidBody = useRef();
   const avatar = useRef();
   const isOnFloor = useRef(true);
+
+  /**
+   * State Management
+   */
+  const { avatarState, setAvatarState } = useAvatarStore((state) => ({
+    avatar: state.avatarState,
+    setAvatarState: state.setAvatarState
+  }));
 
   /**
    * Keyboard Controls
@@ -87,6 +97,19 @@ const AvatarController = () => {
     rigidBody.current.applyImpulse(impulse, true);
 
     /**
+     * Animation Handle
+     */
+    if (Math.abs(linvel.x) > RUN_VEL || Math.abs(linvel.z) > RUN_VEL) {
+      if (avatarState !== 'walking') {
+        setAvatarState('walking');
+      }
+    } else {
+      if (avatarState !== 'standing') {
+        setAvatarState('standing');
+      }
+    }
+
+    /**
      * Calculate the current angle the avatar
      * is hading to and rotate accordingly
      *
@@ -102,10 +125,10 @@ const AvatarController = () => {
     const avatarWorldPosition = avatar.current.getWorldPosition(new THREE.Vector3());
     const targetLookAt = new THREE.Vector3(avatarWorldPosition.x, 0.75, avatarWorldPosition.z);
 
-    // state.camera.position.x = avatarWorldPosition.x - 15;
-    // state.camera.position.z = avatarWorldPosition.z - 15;
+    state.camera.position.x = avatarWorldPosition.x - 15;
+    state.camera.position.z = avatarWorldPosition.z - 15;
 
-    // state.camera.lookAt(targetLookAt);
+    state.camera.lookAt(targetLookAt);
   });
 
   return (

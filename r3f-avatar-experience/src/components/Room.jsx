@@ -1,71 +1,115 @@
-import React, { useRef } from 'react';
 import { RigidBody } from '@react-three/rapier';
-import { Box, Image, Text } from '@react-three/drei';
 import Lights from './Lights';
 
-const Ground = ({ positionZ = 0, material }) => {
-  return (
-    <RigidBody type="fixed" friction={1.5}>
-      <Box args={[6, 0.25, 8]} position={[0, 0, positionZ * 8]} material={material} receiveShadow />
-    </RigidBody>
-  );
-};
+const Room = ({ positionZ = 0, model, lightColor }) => {
+  /**
+   * Here I will push each letter in model
+   */
+  const letters = [];
 
-const Wall = ({ positionZ = 0, material, timeline, logo }) => {
-  const wallRef = useRef();
-  const imageRef = useRef();
+  // Populate the array
+  for (let key in model.nodes) {
+    if (key.startsWith('text')) {
+      let letter = model.nodes[key];
+      letters.push(letter);
+    }
+  }
 
-  return (
-    <RigidBody type="fixed">
-      <Box
-        ref={wallRef}
-        args={[0.25, 4, 8]}
-        position={[2.875, 2.125, positionZ * 8]}
-        material={material}
-        castShadow
-      />
+  console.log(letters);
 
-      {/* LOGO */}
-      <Image
-        ref={imageRef}
-        url="/images/booleanLogo.png"
-        opacity={1}
-        position={[2.725, 3.275, positionZ * 8 - 1.5]}
-        rotation={[0, Math.PI * -0.5, 0]}
-        scale={[4, 0.9]}
-        receiveShadow
-        attach={wallRef.current}
-      />
-
-      {/* TIMELINE */}
-      <Text
-        position={[0, 0.1275, positionZ * 8 - 3.75]}
-        rotation={[Math.PI / 2, Math.PI, 0]}
-        attach={wallRef.current}
-        fontSize={0.35}
-        anchorX={2.675}
-        color="#051531"
-      >
-        {timeline}
-      </Text>
-    </RigidBody>
-  );
-};
-
-const Room = ({
-  positionZ = 0,
-  roomGroundMaterial,
-  roomWallMaterial,
-  lightColor,
-  logo,
-  timeline
-}) => {
-  console.log(logo);
   return (
     <>
-      <Ground positionZ={positionZ} material={roomGroundMaterial} />
-      <Wall positionZ={positionZ} material={roomWallMaterial} logo={logo} timeline={timeline} />
+      {/* Room */}
+      <RigidBody
+        type="fixed"
+        position={[model.scene.position.x, model.scene.position.y, model.scene.position.z]}
+      >
+        <group>
+          {/* 
+            GROUND 
+          */}
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={model.nodes.ground.geometry}
+            position={[
+              model.nodes.ground.position.x,
+              model.nodes.ground.position.y,
+              model.nodes.ground.position.z
+            ]}
+            rotation={[Math.PI, 0, Math.PI]}
+            material={model.materials.groundMaterial}
+            scale={[3, 1, 4]}
+          />
 
+          {/* 
+            WALL
+          */}
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={model.nodes.wall.geometry}
+            position={[
+              model.nodes.wall.position.x,
+              model.nodes.wall.position.y,
+              model.nodes.wall.position.z
+            ]}
+            rotation={[Math.PI, 0, Math.PI / 2]}
+            material={model.nodes.wall.material}
+            scale={[2.25, 1, 4]}
+          />
+        </group>
+      </RigidBody>
+
+      {letters.map((letter) => {
+        return (
+          <RigidBody rotation={[0, 0, 0]}>
+            <mesh
+              receiveShadow
+              geometry={letter.geometry}
+              position={[letter.position.x, letter.position.y, letter.position.z]}
+              rotation={[letter.rotation.x, letter.rotation.y, letter.rotation.z]}
+              material={model.materials.textmaterial}
+            />
+          </RigidBody>
+        );
+      })}
+
+      <group>
+        {/* 
+          LOGO
+        */}
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={model.nodes.logo.geometry}
+          material={model.materials.logo}
+          position={[
+            model.nodes.logo.position.x,
+            model.nodes.logo.position.y,
+            model.nodes.logo.position.z
+          ]}
+          rotation={[Math.PI / 2, 0, Math.PI / 2]}
+          scale={0.655}
+        />
+
+        {/* 
+          TIMELINE
+        */}
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={model.nodes.timeline.geometry}
+          material={model.materials.timeline}
+          position={[
+            model.nodes.timeline.position.x,
+            model.nodes.timeline.position.y,
+            model.nodes.timeline.position.z
+          ]}
+          rotation={[Math.PI / 2, 0, Math.PI / 2]}
+          scale={0.305}
+        />
+      </group>
       {/* Light */}
       <Lights positionZ={positionZ} color={lightColor} />
     </>
