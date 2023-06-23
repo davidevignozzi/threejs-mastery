@@ -15,15 +15,10 @@ const Room = ({ positionZ = 0, model, lightColor }) => {
     }
   }
 
-  console.log(letters);
-
   return (
     <>
       {/* Room */}
-      <RigidBody
-        type="fixed"
-        position={[model.scene.position.x, model.scene.position.y, model.scene.position.z]}
-      >
+      <RigidBody type="fixed" friction={1}>
         <group>
           {/* 
             GROUND 

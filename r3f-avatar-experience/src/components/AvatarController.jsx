@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
 import { useKeyboardControls } from '@react-three/drei';
@@ -11,7 +11,7 @@ import { useAvatarStore } from '../stores/store';
  */
 const MOVEMENT_SPEED = 0.1;
 const MAX_VEL = 3;
-const RUN_VEL = 1;
+const RUN_VEL = 0.8;
 
 const AvatarController = () => {
   const rigidBody = useRef();
@@ -100,12 +100,12 @@ const AvatarController = () => {
      * Animation Handle
      */
     if (Math.abs(linvel.x) > RUN_VEL || Math.abs(linvel.z) > RUN_VEL) {
-      if (avatarState !== 'walking') {
-        setAvatarState('walking');
+      if (avatarState !== 'Walk') {
+        setAvatarState('Walk');
       }
     } else {
-      if (avatarState !== 'standing') {
-        setAvatarState('standing');
+      if (avatarState !== 'Idle') {
+        setAvatarState('Idle');
       }
     }
 
@@ -146,9 +146,7 @@ const AvatarController = () => {
       >
         <CapsuleCollider args={[0.675, 0.3]} position={[-2.05, 0.975, -2.75]} />
         <group position={[-2.05, 0, -2.75]} ref={avatar}>
-          <group rotation-x={-Math.PI / 2}>
-            <Avatar />
-          </group>
+          <Avatar />
         </group>
       </RigidBody>
     </group>

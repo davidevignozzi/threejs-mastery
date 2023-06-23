@@ -27,7 +27,7 @@ const Hall = () => {
   return (
     <>
       {/* First Cube => Start */}
-      <RigidBody type="fixed">
+      <RigidBody type="fixed" friction={1}>
         <primitive object={firstRoom.scene} />
       </RigidBody>
 
