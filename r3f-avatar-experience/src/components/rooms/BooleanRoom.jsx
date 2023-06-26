@@ -2,9 +2,24 @@ import { useGLTF } from '@react-three/drei';
 import { RigidBody } from '@react-three/rapier';
 
 const BooleanRoom = () => {
+  /**
+   * Models
+   */
   const room = useGLTF('./models/rooms/booleanRoom.glb');
   const text = useGLTF('./models/rooms/booleanText.glb');
-  const duck = useGLTF('./models/rooms/duck.glb');
+  const duckModel = useGLTF('./models/rooms/duck.glb');
+
+  // Destructured
+  const wall = room.nodes.booleanWall;
+  const ground = room.nodes.ground;
+  const duck = duckModel.nodes.Duck;
+
+  /**
+   * Materials
+   */
+  const duckMaterial = duckModel.materials.rubber_duck_toy;
+  const wallMaterial = room.materials.booleanWallTry;
+  const groundMaterial = room.materials.groundMaterial;
 
   /**
    * Here I will push each letter in model
@@ -22,7 +37,20 @@ const BooleanRoom = () => {
   return (
     <>
       <RigidBody type="fixed" friction={1}>
-        <primitive object={room.scene} />
+        <mesh
+          geometry={wall.geometry}
+          position={wall.position}
+          scale={wall.scale}
+          rotation={wall.rotation}
+          material={wallMaterial}
+        />
+        <mesh
+          geometry={ground.geometry}
+          position={ground.position}
+          scale={ground.scale}
+          rotation={ground.rotation}
+          material={groundMaterial}
+        />
       </RigidBody>
 
       {/* DUCK */}
@@ -31,17 +59,13 @@ const BooleanRoom = () => {
         friction={0}
         mass={0.0001}
         gravityScale={0.1}
-        position={[
-          duck.nodes.Duck.position.x,
-          duck.nodes.Duck.position.y + 0.005,
-          duck.nodes.Duck.position.z
-        ]}
+        position={[duck.position.x, duck.position.y + 0.005, duck.position.z]}
       >
         <mesh
-          geometry={duck.nodes.Duck.geometry}
-          scale={duck.nodes.Duck.scale}
-          rotation={duck.nodes.Duck.rotation}
-          material={duck.materials.rubber_duck_toy}
+          geometry={duck.geometry}
+          scale={duck.scale}
+          rotation={duck.rotation}
+          material={duckMaterial}
         />
       </RigidBody>
 
