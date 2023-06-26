@@ -126,7 +126,7 @@ const AvatarController = () => {
     const targetLookAt = new THREE.Vector3(avatarWorldPosition.x, 0.75, avatarWorldPosition.z);
 
     state.camera.position.x = avatarWorldPosition.x - 15;
-    state.camera.position.z = avatarWorldPosition.z - 15;
+    state.camera.position.z = avatarWorldPosition.z - 10;
 
     state.camera.lookAt(targetLookAt);
   });
