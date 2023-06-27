@@ -2,7 +2,7 @@ import { useGLTF } from '@react-three/drei';
 import { RigidBody } from '@react-three/rapier';
 
 const FirstRoom = () => {
-  const firstRoom = useGLTF('/models/RoomStart.glb');
+  const firstRoom = useGLTF('/models/rooms/RoomStart.glb');
   return (
     <RigidBody type="fixed" friction={1}>
       <primitive object={firstRoom.scene} />

@@ -12,13 +12,13 @@ const BooleanRoom = () => {
   // Destructured
   const wall = room.nodes.booleanWall;
   const ground = room.nodes.ground;
-  const duck = duckModel.nodes.Duck;
+  const duck = duckModel.nodes.duck;
 
   /**
    * Materials
    */
-  const duckMaterial = duckModel.materials.rubber_duck_toy;
-  const wallMaterial = room.materials.booleanWallTry;
+  const duckMaterial = duckModel.materials.duckMaterial;
+  const wallMaterial = room.materials.booleanWall;
   const groundMaterial = room.materials.groundMaterial;
 
   /**
