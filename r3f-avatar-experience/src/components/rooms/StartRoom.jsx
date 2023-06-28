@@ -6,28 +6,27 @@ const StartRoom = () => {
   /**
    * Models
    */
-  const startRoomModel = useGLTF('/models/rooms/startRoom.glb');
+  const { nodes, materials } = useGLTF('/models/rooms/startRoom.glb');
 
   // Destructured
-  const startRoom = startRoomModel.nodes;
-  const wall = startRoom.Wall;
-  const ground = startRoom.Ground;
-  const h2Mesh = startRoom.h2;
-  const h2_1Mesh = startRoom.h2_1;
+
+  const wall = nodes.Wall;
+  const ground = nodes.Ground;
+  const h2Mesh = nodes.h2;
+  const h2_1Mesh = nodes.h2_1;
 
   /**
    * Materials
    */
-  const materials = startRoomModel.materials;
-  const wallMaterial = startRoomModel.materials.wallMaterial;
-  const groundMaterial = startRoomModel.materials.groundMaterial;
+  const wallMaterial = materials.wallMaterial;
+  const groundMaterial = materials.groundMaterial;
   const h1Material = materials.h1Material;
   const h2Material = materials.textMaterial;
 
   /**
    * To separate letters and wrap it into RigidBody
    */
-  const letters = useLetters(startRoom);
+  const letters = useLetters(nodes);
 
   return (
     <group>
