@@ -1,5 +1,6 @@
 import { useGLTF } from '@react-three/drei';
 import { RigidBody } from '@react-three/rapier';
+import useLetters from '../../utils/useLetters';
 
 const BooleanRoom = () => {
   /**
@@ -22,21 +23,15 @@ const BooleanRoom = () => {
   const groundMaterial = room.materials.groundMaterial;
 
   /**
-   * Here I will push each letter in model
+   * To separate letters and wrap it into RigidBody
    */
-  const letters = [];
-
-  // Populate the array
-  for (let key in text.nodes) {
-    if (key.startsWith('text')) {
-      let letter = text.nodes[key];
-      letters.push(letter);
-    }
-  }
+  const letters = useLetters(text.nodes);
 
   return (
-    <>
+    <group>
+      {/* ROOM */}
       <RigidBody type="fixed" friction={1}>
+        {/* WALL */}
         <mesh
           geometry={wall.geometry}
           position={wall.position}
@@ -44,6 +39,8 @@ const BooleanRoom = () => {
           rotation={wall.rotation}
           material={wallMaterial}
         />
+
+        {/* GROUND */}
         <mesh
           geometry={ground.geometry}
           position={ground.position}
@@ -56,7 +53,7 @@ const BooleanRoom = () => {
       {/* DUCK */}
       <RigidBody
         type="dynamic"
-        friction={0}
+        friction={0.5}
         mass={0.0001}
         gravityScale={0.1}
         position={[duck.position.x, duck.position.y + 0.005, duck.position.z]}
@@ -70,7 +67,7 @@ const BooleanRoom = () => {
       </RigidBody>
 
       {/* Boolean 3D Text */}
-      {letters.map((letter, i) => {
+      {/* {letters.map((letter, i) => {
         return (
           <RigidBody key={i} rotation={[0, 0, 0]}>
             <mesh
@@ -82,8 +79,8 @@ const BooleanRoom = () => {
             />
           </RigidBody>
         );
-      })}
-    </>
+      })} */}
+    </group>
   );
 };
 

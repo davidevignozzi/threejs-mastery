@@ -1,11 +1,11 @@
 import React from 'react';
 import BooleanRoom from './rooms/BooleanRoom';
-import FirstRoom from './rooms/FirstRoom';
+import StartRoom from './rooms/StartRoom';
 
 const Hall = () => {
   return (
     <group>
-      <FirstRoom />
+      <StartRoom />
       <BooleanRoom />
     </group>
   );
