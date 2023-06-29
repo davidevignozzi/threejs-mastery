@@ -1,32 +1,21 @@
-import * as THREE from 'three';
+import React from 'react';
 import { useGLTF } from '@react-three/drei';
 import { RigidBody } from '@react-three/rapier';
-import useLetters from '../../utils/useLetters';
 
-const BooleanRoom = (props) => {
+const EverisRoom = (props) => {
   /**
    * Models
    */
-  const { nodes, materials } = useGLTF('./models/rooms/booleanRoom.glb');
+  const { nodes, materials } = useGLTF('./models/rooms/everisRoom.glb');
 
   // Destructured
-  const wall = nodes.booleanWall;
+  const wall = nodes.wall;
   const ground = nodes.ground;
-  const duck = nodes.duck;
 
   /**
    * Materials
    */
   const groundMaterial = props.groundMaterial;
-  const wallMaterial = materials.booleanWall;
-  const duckMaterial = materials.duckMaterial;
-  const textMaterial = new THREE.MeshStandardMaterial({ color: '#051630' });
-  // const textMaterial = new THREE.MeshStandardMaterial({ color: '#6ada77' });
-
-  /**
-   * To separate letters and wrap it into RigidBody
-   */
-  const letters = useLetters(nodes);
 
   return (
     <group>
@@ -38,7 +27,6 @@ const BooleanRoom = (props) => {
           position={wall.position}
           scale={wall.scale}
           rotation={wall.rotation}
-          material={wallMaterial}
         />
 
         {/* GROUND */}
@@ -51,25 +39,9 @@ const BooleanRoom = (props) => {
         />
       </RigidBody>
 
-      {/* DUCK */}
-      <RigidBody
-        type="dynamic"
-        friction={0.5}
-        mass={0.0001}
-        gravityScale={0.1}
-        position={[duck.position.x, duck.position.y + 0.005, duck.position.z]}
-      >
-        <mesh
-          geometry={duck.geometry}
-          scale={duck.scale}
-          rotation={duck.rotation}
-          material={duckMaterial}
-        />
-      </RigidBody>
-
-      {/* Boolean 3D Text */}
+      {/* Everis 3D Text */}
       <group>
-        {letters.map((letter, i) => {
+        {/* {letters.map((letter, i) => {
           return (
             <RigidBody key={i}>
               <mesh
@@ -81,10 +53,10 @@ const BooleanRoom = (props) => {
               />
             </RigidBody>
           );
-        })}
+        })} */}
       </group>
     </group>
   );
 };
 
-export default BooleanRoom;
+export default EverisRoom;
