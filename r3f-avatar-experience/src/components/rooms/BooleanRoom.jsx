@@ -7,7 +7,6 @@ const BooleanRoom = () => {
    * Models
    */
   const { nodes, materials } = useGLTF('./models/rooms/booleanRoom.glb');
-  console.log('🚀 ~ BooleanRoom ~ materials:', materials);
 
   // Destructured
   const wall = nodes.booleanWall;

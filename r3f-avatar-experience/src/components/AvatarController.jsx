@@ -50,7 +50,7 @@ const AvatarController = () => {
      * controlled when the user press a key.
      *
      */
-    const linvel = rigidBody.current.linvel();
+    const linvel = rigidBody?.current?.linvel();
 
     /**
      * When it's true will calculate the
@@ -94,7 +94,7 @@ const AvatarController = () => {
     /**
      * Apply Impulse
      */
-    rigidBody.current.applyImpulse(impulse, true);
+    rigidBody?.current?.applyImpulse(impulse, true);
 
     /**
      * Animation Handle
@@ -144,7 +144,7 @@ const AvatarController = () => {
           isOnFloor.current = false;
         }}
       >
-        <CapsuleCollider args={[0.675, 0.3]} position={[-2.05, 0.975, -2.75]} />
+        <CapsuleCollider args={[0.675, 0.3]} position={[-2.05, 1, -2.75]} />
         <group position={[-2.05, 0, -2.75]} ref={avatar}>
           <Avatar />
         </group>
