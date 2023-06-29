@@ -1,8 +1,14 @@
+import * as THREE from 'three';
+import { useControls } from 'leva';
 import { useGLTF } from '@react-three/drei';
 import { RigidBody } from '@react-three/rapier';
 import useLetters from '../../utils/useLetters';
 
 const StartRoom = () => {
+  /**
+   * Debug
+   */
+  // const startRoomDebug = useControls('startRoomDebug', { color: '#ef782e' });
   /**
    * Models
    */
@@ -22,8 +28,6 @@ const StartRoom = () => {
   const groundMaterial = materials.groundMaterial;
   const h1Material = materials.h1Material;
   const h2Material = materials.h2Material;
-  const tvMaterial = materials.Tv;
-  const tvBorderMaterial = materials.TvBorder;
 
   /**
    * To separate letters and wrap it into RigidBody

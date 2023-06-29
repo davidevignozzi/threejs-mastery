@@ -3,6 +3,7 @@ import { Experience } from './components/Experience';
 import { Suspense, useMemo } from 'react';
 import { Physics } from '@react-three/rapier';
 import { KeyboardControls, Loader } from '@react-three/drei';
+import { Leva } from 'leva';
 
 /**
  * Keyboard Controls
@@ -29,17 +30,20 @@ function App() {
   );
 
   return (
-    <KeyboardControls map={controlsMap}>
-      <Canvas shadows camera={{ position: [-15, 7, -10], fov: 30 }}>
-        <color attach="background" args={['#ececec']} />
-        <Suspense fallback={null}>
-          <Physics debug>
-            <Experience />
-          </Physics>
-        </Suspense>
-      </Canvas>
-      <Loader />
-    </KeyboardControls>
+    <>
+      <Leva collapsed />
+      <KeyboardControls map={controlsMap}>
+        <Canvas shadows camera={{ position: [-15, 7, -10], fov: 30 }}>
+          <color attach="background" args={['#ececec']} />
+          <Suspense fallback={null}>
+            <Physics>
+              <Experience />
+            </Physics>
+          </Suspense>
+        </Canvas>
+        <Loader />
+      </KeyboardControls>
+    </>
   );
 }
 

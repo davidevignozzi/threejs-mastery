@@ -13,7 +13,9 @@ export const Experience = () => {
           position={[-3, 1, -1]}
           form="circle"
           scale={5}
-          color="#e4d4ca"
+          // color="#e4d4ca"
+          // color="#ffffff"
+          color="#fdebdf"
           intensity={2}
           castShadow
         />

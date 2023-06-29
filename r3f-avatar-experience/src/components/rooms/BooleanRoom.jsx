@@ -3,7 +3,7 @@ import { useGLTF } from '@react-three/drei';
 import { RigidBody } from '@react-three/rapier';
 import useLetters from '../../utils/useLetters';
 
-const BooleanRoom = () => {
+const BooleanRoom = (props) => {
   /**
    * Models
    */
@@ -18,10 +18,10 @@ const BooleanRoom = () => {
    * Materials
    */
   const wallMaterial = materials.booleanWall;
-  const groundMaterial = new THREE.MeshBasicMaterial({ color: '#051630' });
-  // const groundMaterial = materials.groundMaterial;
+  const groundMaterial = props.groundMaterial;
   const duckMaterial = materials.duckMaterial;
-  const textMaterial = materials.textmaterial;
+  const textMaterial = new THREE.MeshStandardMaterial({ color: '#051630' });
+  // const textMaterial = new THREE.MeshStandardMaterial({ color: '#6ada77' });
 
   /**
    * To separate letters and wrap it into RigidBody
