@@ -53,41 +53,45 @@ const StartRoom = () => {
       </RigidBody>
 
       {/* Davide Vignozzi 3DText */}
-      {letters.map((letter, i) => {
-        return (
-          <RigidBody key={i}>
-            <mesh
-              geometry={letter.geometry}
-              position={letter.position}
-              rotation={letter.rotation}
-              scale={letter.scale}
-              material={h1Material}
-            />
-          </RigidBody>
-        );
-      })}
+      <group>
+        {letters.map((letter, i) => {
+          return (
+            <RigidBody key={i}>
+              <mesh
+                geometry={letter.geometry}
+                position={letter.position}
+                rotation={letter.rotation}
+                scale={letter.scale}
+                material={h1Material}
+              />
+            </RigidBody>
+          );
+        })}
+      </group>
 
       {/* Creative Dev 3DText */}
-      {/* CREATIVE */}
-      <RigidBody>
-        <mesh
-          geometry={h2Mesh.geometry}
-          position={h2Mesh.position}
-          rotation={h2Mesh.rotation}
-          scale={h2Mesh.scale}
-          material={h2Material}
-        />
-      </RigidBody>
-      {/* DEV */}
-      <RigidBody>
-        <mesh
-          geometry={h2_1Mesh.geometry}
-          position={h2_1Mesh.position}
-          rotation={h2_1Mesh.rotation}
-          scale={h2_1Mesh.scale}
-          material={h2Material}
-        />
-      </RigidBody>
+      <group>
+        {/* CREATIVE */}
+        <RigidBody>
+          <mesh
+            geometry={h2Mesh.geometry}
+            position={h2Mesh.position}
+            rotation={h2Mesh.rotation}
+            scale={h2Mesh.scale}
+            material={h2Material}
+          />
+        </RigidBody>
+        {/* DEV */}
+        <RigidBody>
+          <mesh
+            geometry={h2_1Mesh.geometry}
+            position={h2_1Mesh.position}
+            rotation={h2_1Mesh.rotation}
+            scale={h2_1Mesh.scale}
+            material={h2Material}
+          />
+        </RigidBody>
+      </group>
 
       {/* Paintings */}
       <primitive object={paintings.scene} />

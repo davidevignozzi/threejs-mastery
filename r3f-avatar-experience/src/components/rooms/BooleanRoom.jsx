@@ -6,26 +6,26 @@ const BooleanRoom = () => {
   /**
    * Models
    */
-  const room = useGLTF('./models/rooms/booleanRoom.glb');
-  const text = useGLTF('./models/rooms/booleanText.glb');
-  const duckModel = useGLTF('./models/rooms/duck.glb');
+  const { nodes, materials } = useGLTF('./models/rooms/booleanRoom.glb');
+  console.log('🚀 ~ BooleanRoom ~ materials:', materials);
 
   // Destructured
-  const wall = room.nodes.booleanWall;
-  const ground = room.nodes.ground;
-  const duck = duckModel.nodes.duck;
+  const wall = nodes.booleanWall;
+  const ground = nodes.ground;
+  const duck = nodes.duck;
 
   /**
    * Materials
    */
-  const duckMaterial = duckModel.materials.duckMaterial;
-  const wallMaterial = room.materials.booleanWall;
-  const groundMaterial = room.materials.groundMaterial;
+  const wallMaterial = materials.booleanWall;
+  const groundMaterial = materials.groundMaterial;
+  const duckMaterial = materials.duckMaterial;
+  const textMaterial = materials.textmaterial;
 
   /**
    * To separate letters and wrap it into RigidBody
    */
-  const letters = useLetters(text.nodes);
+  const letters = useLetters(nodes);
 
   return (
     <group>
@@ -67,19 +67,21 @@ const BooleanRoom = () => {
       </RigidBody>
 
       {/* Boolean 3D Text */}
-      {/* {letters.map((letter, i) => {
-        return (
-          <RigidBody key={i} rotation={[0, 0, 0]}>
-            <mesh
-              receiveShadow
-              geometry={letter.geometry}
-              position={[letter.position.x, letter.position.y, letter.position.z]}
-              rotation={[letter.rotation.x, letter.rotation.y, letter.rotation.z]}
-              material={text.materials.textmaterial}
-            />
-          </RigidBody>
-        );
-      })} */}
+      <group>
+        {letters.map((letter, i) => {
+          return (
+            <RigidBody key={i}>
+              <mesh
+                geometry={letter.geometry}
+                position={letter.position}
+                rotation={letter.rotation}
+                scale={letter.scale}
+                material={textMaterial}
+              />
+            </RigidBody>
+          );
+        })}
+      </group>
     </group>
   );
 };
