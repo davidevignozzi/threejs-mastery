@@ -132,7 +132,7 @@ const AvatarController = () => {
   });
 
   return (
-    <group>
+    <group position-y={1}>
       <RigidBody
         ref={rigidBody}
         colliders={false}

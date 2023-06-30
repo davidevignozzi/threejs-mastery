@@ -15,6 +15,11 @@ const BooleanRoom = (props) => {
   const duck = nodes.duck;
 
   /**
+   * To separate letters and wrap it into RigidBody
+   */
+  const letters = useLetters(nodes);
+
+  /**
    * Materials
    */
   const groundMaterial = props.groundMaterial;
@@ -22,11 +27,6 @@ const BooleanRoom = (props) => {
   const duckMaterial = materials.duckMaterial;
   const textMaterial = new THREE.MeshStandardMaterial({ color: '#051630' });
   // const textMaterial = new THREE.MeshStandardMaterial({ color: '#6ada77' });
-
-  /**
-   * To separate letters and wrap it into RigidBody
-   */
-  const letters = useLetters(nodes);
 
   return (
     <group>
