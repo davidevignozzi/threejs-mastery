@@ -9,6 +9,7 @@ const EverisRoom = (props) => {
    * Models
    */
   const { nodes, materials } = useGLTF('./models/rooms/everisRoom.glb');
+  console.log('🚀 ~ EverisRoom ~ nodes:', nodes);
 
   // Destructured
   const wall = nodes.Wall;
@@ -67,10 +68,10 @@ const EverisRoom = (props) => {
         })}
       </group>
 
-      <RigidBody>
+      <RigidBody type="fixed">
         <CuboidCollider
           args={[1.5, 0.7, 1]}
-          position={[desk.position.x, desk.position.y, desk.position.z + 0.3]}
+          position={[desk.position.x, desk.position.y - 0.5, desk.position.z + 0.3]}
         />
       </RigidBody>
       <primitive object={desk} />

@@ -75,7 +75,7 @@ const AvatarController = () => {
     /**
      * W ⬆
      */
-    if (forwardPressed && linvel.z < MAX_VEL) {
+    if (forwardPressed && linvel?.z < MAX_VEL) {
       impulse.z += MOVEMENT_SPEED;
       changeRotation = true;
     }
@@ -83,7 +83,7 @@ const AvatarController = () => {
     /**
      * A ⬅
      */
-    if (leftPressed && linvel.x < MAX_VEL) {
+    if (leftPressed && linvel?.x < MAX_VEL) {
       impulse.x += MOVEMENT_SPEED;
       changeRotation = true;
     }
@@ -91,7 +91,7 @@ const AvatarController = () => {
     /**
      * S ⬇
      */
-    if (backPressed && linvel.z > -MAX_VEL) {
+    if (backPressed && linvel?.z > -MAX_VEL) {
       impulse.z -= MOVEMENT_SPEED;
       changeRotation = true;
     }
@@ -99,7 +99,7 @@ const AvatarController = () => {
     /**
      * D ➡
      */
-    if (rightPressed && linvel.x > -MAX_VEL) {
+    if (rightPressed && linvel?.x > -MAX_VEL) {
       impulse.x -= MOVEMENT_SPEED;
       changeRotation = true;
     }
@@ -112,7 +112,7 @@ const AvatarController = () => {
     /**
      * Animation Handle
      */
-    if (Math.abs(linvel.x) > RUN_VEL || Math.abs(linvel.z) > RUN_VEL) {
+    if (Math.abs(linvel?.x) > RUN_VEL || Math.abs(linvel?.z) > RUN_VEL) {
       if (avatarState !== 'Walk') {
         setAvatarState('Walk');
       }
@@ -144,7 +144,7 @@ const AvatarController = () => {
      *
      */
     if (changeRotation) {
-      const angle = Math.atan2(linvel.x, linvel.z);
+      const angle = Math.atan2(linvel?.x, linvel?.z);
       avatar.current.rotation.y = angle;
     }
 
