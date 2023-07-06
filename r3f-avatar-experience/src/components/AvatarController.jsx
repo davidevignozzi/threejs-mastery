@@ -21,8 +21,6 @@ const AvatarController = () => {
   const [smoothCameraPosition] = useState(() => new THREE.Vector3(-15, 7, -10));
   const [smoothCameraTarget] = useState(() => new THREE.Vector3());
 
-  const reset = () => {};
-
   /**
    * State Management
    */
