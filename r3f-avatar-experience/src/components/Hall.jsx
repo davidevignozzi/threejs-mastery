@@ -4,6 +4,7 @@ import BooleanRoom from './rooms/BooleanRoom';
 import StartRoom from './rooms/StartRoom';
 import EverisRoom from './rooms/EverisRoom';
 import ThreeJsJourneyRoom from './rooms/ThreeJsJourneyRoom';
+import MetaRoom from './rooms/MetaRoom';
 
 const Hall = () => {
   const groundMaterial = new THREE.MeshStandardMaterial({ color: '#b69f80' });
@@ -13,6 +14,7 @@ const Hall = () => {
       <BooleanRoom groundMaterial={groundMaterial} />
       <EverisRoom groundMaterial={groundMaterial} />
       <ThreeJsJourneyRoom groundMaterial={groundMaterial} />
+      <MetaRoom groundMaterial={groundMaterial} />
     </group>
   );
 };

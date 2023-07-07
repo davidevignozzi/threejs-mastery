@@ -3,11 +3,12 @@ import { useGLTF } from '@react-three/drei';
 import { RigidBody } from '@react-three/rapier';
 import useLetters from '../../utils/useLetters';
 
-const ThreeJsJourneyRoom = ({ groundMaterial }) => {
+const MetaRoom = ({ groundMaterial }) => {
   /**
    * Models
    */
-  const { nodes, materials } = useGLTF('./models/rooms/threeJsJourneyRoom.glb');
+  const { nodes, materials } = useGLTF('./models/rooms/metaRoom.glb');
+  console.log('🚀 ~ MetaRoom ~ nodes, materials:', nodes, materials);
 
   // Destructured
   const wall = nodes.Wall;
@@ -16,8 +17,8 @@ const ThreeJsJourneyRoom = ({ groundMaterial }) => {
   /**
    * Materials
    */
-  const wallMaterial = materials.ThreeJsJourneyWall;
-  const textMaterial = new THREE.MeshStandardMaterial({ color: '#6C64EB' });
+  const wallMaterial = materials.MetaWall;
+  const textMaterial = new THREE.MeshStandardMaterial({ color: '#0668E1' });
 
   /**
    * To separate letters and wrap it into RigidBody
@@ -66,4 +67,4 @@ const ThreeJsJourneyRoom = ({ groundMaterial }) => {
   );
 };
 
-export default ThreeJsJourneyRoom;
+export default MetaRoom;
