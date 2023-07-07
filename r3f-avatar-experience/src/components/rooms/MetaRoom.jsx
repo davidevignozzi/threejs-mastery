@@ -15,15 +15,15 @@ const MetaRoom = ({ groundMaterial }) => {
   const ground = nodes.Ground;
 
   /**
+   * To separate letters and wrap it into RigidBody
+   */
+  const letters = useLetters(nodes);
+
+  /**
    * Materials
    */
   const wallMaterial = materials.MetaWall;
   const textMaterial = new THREE.MeshStandardMaterial({ color: '#0668E1' });
-
-  /**
-   * To separate letters and wrap it into RigidBody
-   */
-  const letters = useLetters(nodes);
 
   return (
     <group>

@@ -4,7 +4,7 @@ import { useGLTF } from '@react-three/drei';
 import { CuboidCollider, RigidBody } from '@react-three/rapier';
 import useLetters from '../../utils/useLetters';
 
-const EverisRoom = (props) => {
+const EverisRoom = ({ groundMaterial }) => {
   /**
    * Models
    */
@@ -24,7 +24,6 @@ const EverisRoom = (props) => {
    * Materials
    */
   const wallMaterial = materials.EverisWall;
-  const groundMaterial = props.groundMaterial;
   const textMaterial = new THREE.MeshStandardMaterial({ color: '#9EAC31' });
 
   return (

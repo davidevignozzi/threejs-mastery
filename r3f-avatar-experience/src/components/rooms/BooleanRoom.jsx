@@ -3,7 +3,7 @@ import { useGLTF } from '@react-three/drei';
 import { RigidBody } from '@react-three/rapier';
 import useLetters from '../../utils/useLetters';
 
-const BooleanRoom = (props) => {
+const BooleanRoom = ({ groundMaterial }) => {
   /**
    * Models
    */
@@ -22,7 +22,6 @@ const BooleanRoom = (props) => {
   /**
    * Materials
    */
-  const groundMaterial = props.groundMaterial;
   const wallMaterial = materials.booleanWall;
   const duckMaterial = materials.duckMaterial;
   const textMaterial = new THREE.MeshStandardMaterial({ color: '#051630' });

@@ -14,15 +14,15 @@ const ThreeJsJourneyRoom = ({ groundMaterial }) => {
   const ground = nodes.Ground;
 
   /**
+   * To separate letters and wrap it into RigidBody
+   */
+  const letters = useLetters(nodes);
+
+  /**
    * Materials
    */
   const wallMaterial = materials.ThreeJsJourneyWall;
   const textMaterial = new THREE.MeshStandardMaterial({ color: '#6C64EB' });
-
-  /**
-   * To separate letters and wrap it into RigidBody
-   */
-  const letters = useLetters(nodes);
 
   return (
     <group>
