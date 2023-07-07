@@ -175,6 +175,7 @@ const AvatarController = () => {
         // type="dynamic"
         colliders={false}
         enabledRotations={[false, false, false]}
+        mass={100}
         onCollisionEnter={() => {
           isOnFloor.current = true;
         }}

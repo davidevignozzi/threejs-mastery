@@ -10,9 +10,9 @@ const BooleanRoom = ({ groundMaterial }) => {
   const { nodes, materials } = useGLTF('./models/rooms/booleanRoom.glb');
 
   // Destructured
-  const wall = nodes.booleanWall;
-  const ground = nodes.ground;
-  const duck = nodes.duck;
+  const wall = nodes.Wall;
+  const ground = nodes.Ground;
+  const duck = nodes.Duck;
 
   /**
    * To separate letters and wrap it into RigidBody

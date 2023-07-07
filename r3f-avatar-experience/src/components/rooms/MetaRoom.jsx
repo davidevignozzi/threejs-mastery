@@ -8,7 +8,6 @@ const MetaRoom = ({ groundMaterial }) => {
    * Models
    */
   const { nodes, materials } = useGLTF('./models/rooms/metaRoom.glb');
-  console.log('🚀 ~ MetaRoom ~ nodes, materials:', nodes, materials);
 
   // Destructured
   const wall = nodes.Wall;
@@ -47,7 +46,7 @@ const MetaRoom = ({ groundMaterial }) => {
         />
       </RigidBody>
 
-      {/* THREEJS JOURNEY 3D Text */}
+      {/* Meta 3D Text */}
       <group>
         {letters.map((letter, i) => {
           return (

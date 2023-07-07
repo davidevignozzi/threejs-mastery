@@ -1,6 +1,6 @@
 import * as THREE from 'three';
-import { useGLTF } from '@react-three/drei';
-import { RigidBody } from '@react-three/rapier';
+import { Box, useGLTF } from '@react-three/drei';
+import { CuboidCollider, RigidBody } from '@react-three/rapier';
 import useLetters from '../../utils/useLetters';
 
 const ThreeJsJourneyRoom = ({ groundMaterial }) => {
@@ -12,6 +12,8 @@ const ThreeJsJourneyRoom = ({ groundMaterial }) => {
   // Destructured
   const wall = nodes.Wall;
   const ground = nodes.Ground;
+  const car = nodes.BrunoSimonCar;
+  console.log('🚀 ~ ThreeJsJourneyRoom ~ car:', car);
 
   /**
    * To separate letters and wrap it into RigidBody
@@ -62,6 +64,29 @@ const ThreeJsJourneyRoom = ({ groundMaterial }) => {
           );
         })}
       </group>
+
+      <RigidBody position-y={0.6} colliders={false}>
+        {/* Bruno Simon Car */}
+        {car.children.map((carMesh) => {
+          return (
+            <mesh
+              key={carMesh.uuid}
+              geometry={carMesh.geometry}
+              position={[car.position.x, car.position.y - 0.5, car.position.z]}
+              rotation={car.rotation}
+              scale={car.scale}
+              material={carMesh.material}
+            />
+          );
+        })}
+      </RigidBody>
+
+      {/* Collider */}
+      <CuboidCollider
+        args={[0.6, 0.75, 1]}
+        position={[car.position.x, car.position.y, car.position.z]}
+        rotation={car.rotation}
+      />
     </group>
   );
 };
