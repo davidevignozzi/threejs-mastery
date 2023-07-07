@@ -9,7 +9,6 @@ const EverisRoom = (props) => {
    * Models
    */
   const { nodes, materials } = useGLTF('./models/rooms/everisRoom.glb');
-  console.log('🚀 ~ EverisRoom ~ nodes:', nodes);
 
   // Destructured
   const wall = nodes.Wall;
