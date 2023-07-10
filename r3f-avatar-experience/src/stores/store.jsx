@@ -11,3 +11,11 @@ export const useAvatarStore = create(
       })
   }))
 );
+
+export const usePhases = create((set) => {
+  return {
+    phase: 'isReady',
+
+    isStarted: () => set({ phase: 'isStarted' })
+  };
+});

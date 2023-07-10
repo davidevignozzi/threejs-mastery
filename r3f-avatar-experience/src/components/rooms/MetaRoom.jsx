@@ -9,7 +9,6 @@ const MetaRoom = ({ groundMaterial, hitSound }) => {
    */
   const { nodes, materials } = useGLTF('./models/rooms/metaRoom.glb');
   const reactLogo = useGLTF('./models/rooms/reactLogo.gltf');
-  console.log('🚀 ~ MetaRoom ~ reactLogo:', reactLogo);
 
   // Destructured
   const wall = nodes.Wall;

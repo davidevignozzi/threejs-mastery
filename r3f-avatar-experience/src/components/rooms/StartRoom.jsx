@@ -79,7 +79,7 @@ const StartRoom = ({ hitSound }) => {
       {/* Creative Dev 3DText */}
       <group>
         {/* CREATIVE */}
-        <RigidBody>
+        <RigidBody onCollisionEnter={collisionSound}>
           <mesh
             geometry={h2Mesh.geometry}
             position={h2Mesh.position}
@@ -88,8 +88,9 @@ const StartRoom = ({ hitSound }) => {
             material={h2Material}
           />
         </RigidBody>
+
         {/* DEV */}
-        <RigidBody>
+        <RigidBody onCollisionEnter={collisionSound}>
           <mesh
             geometry={h2_1Mesh.geometry}
             position={h2_1Mesh.position}

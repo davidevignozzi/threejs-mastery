@@ -3,7 +3,8 @@ import { Experience } from './components/Experience';
 import { Suspense, useMemo } from 'react';
 import { Physics } from '@react-three/rapier';
 import { KeyboardControls, Loader } from '@react-three/drei';
-import { Leva } from 'leva';
+import { usePhases } from './stores/store';
+import Start from './components/Start';
 
 /**
  * Keyboard Controls
@@ -16,6 +17,11 @@ export const Controls = {
 };
 
 function App() {
+  /**
+   * Handle Phase
+   */
+  const phase = usePhases((state) => state.phase);
+
   /**
    * Keyboard Controls Map
    */
@@ -31,14 +37,11 @@ function App() {
 
   return (
     <>
-      <Leva collapsed />
       <KeyboardControls map={controlsMap}>
         <Canvas shadows camera={{ position: [-15, 7, -10], fov: 30 }}>
           <color attach="background" args={['#ececec']} />
           <Suspense fallback={null}>
-            <Physics debug>
-              <Experience />
-            </Physics>
+            <Physics debug>{phase === 'isStarted' ? <Experience /> : <Start />}</Physics>
           </Suspense>
         </Canvas>
         <Loader />
