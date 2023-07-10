@@ -3,7 +3,7 @@ import { useGLTF } from '@react-three/drei';
 import { RigidBody } from '@react-three/rapier';
 import useLetters from '../../utils/useLetters';
 
-const MetaRoom = ({ groundMaterial }) => {
+const MetaRoom = ({ groundMaterial, hitSound }) => {
   /**
    * Models
    */
@@ -25,6 +25,15 @@ const MetaRoom = ({ groundMaterial }) => {
    */
   const wallMaterial = materials.MetaWall;
   const textMaterial = new THREE.MeshStandardMaterial({ color: '#0668E1' });
+
+  /**
+   * When user collide with letters play the hit sound
+   */
+  const collisionSound = () => {
+    hitSound.currentTime = 0;
+    hitSound.volume = Math.random();
+    hitSound.play();
+  };
 
   return (
     <group>
@@ -52,7 +61,7 @@ const MetaRoom = ({ groundMaterial }) => {
       <group>
         {letters.map((letter, i) => {
           return (
-            <RigidBody key={i}>
+            <RigidBody key={i} onCollisionEnter={collisionSound}>
               <mesh
                 geometry={letter.geometry}
                 position={letter.position}

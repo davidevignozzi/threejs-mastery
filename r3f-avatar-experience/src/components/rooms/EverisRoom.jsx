@@ -4,7 +4,7 @@ import { useGLTF } from '@react-three/drei';
 import { CuboidCollider, RigidBody } from '@react-three/rapier';
 import useLetters from '../../utils/useLetters';
 
-const EverisRoom = ({ groundMaterial }) => {
+const EverisRoom = ({ groundMaterial, hitSound }) => {
   /**
    * Models
    */
@@ -25,6 +25,15 @@ const EverisRoom = ({ groundMaterial }) => {
    */
   const wallMaterial = materials.EverisWall;
   const textMaterial = new THREE.MeshStandardMaterial({ color: '#9EAC31' });
+
+  /**
+   * When user collide with letters play the hit sound
+   */
+  const collisionSound = () => {
+    hitSound.currentTime = 0;
+    hitSound.volume = Math.random();
+    hitSound.play();
+  };
 
   return (
     <group>
@@ -53,7 +62,7 @@ const EverisRoom = ({ groundMaterial }) => {
       <group>
         {letters.map((letter, i) => {
           return (
-            <RigidBody key={i}>
+            <RigidBody key={i} onCollisionEnter={collisionSound}>
               <mesh
                 geometry={letter.geometry}
                 position={letter.position}

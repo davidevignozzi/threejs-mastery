@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import * as THREE from 'three';
 import BooleanRoom from './rooms/BooleanRoom';
 import StartRoom from './rooms/StartRoom';
@@ -8,13 +8,15 @@ import MetaRoom from './rooms/MetaRoom';
 
 const Hall = () => {
   const groundMaterial = new THREE.MeshStandardMaterial({ color: '#b69f80' });
+  const [hitSound] = useState(() => new Audio('./sound/hit.mp3'));
+
   return (
     <group>
-      <StartRoom />
-      <BooleanRoom groundMaterial={groundMaterial} />
-      <EverisRoom groundMaterial={groundMaterial} />
-      <ThreeJsJourneyRoom groundMaterial={groundMaterial} />
-      <MetaRoom groundMaterial={groundMaterial} />
+      <StartRoom hitSound={hitSound} />
+      <BooleanRoom hitSound={hitSound} groundMaterial={groundMaterial} />
+      <EverisRoom hitSound={hitSound} groundMaterial={groundMaterial} />
+      <ThreeJsJourneyRoom hitSound={hitSound} groundMaterial={groundMaterial} />
+      <MetaRoom hitSound={hitSound} groundMaterial={groundMaterial} />
     </group>
   );
 };
