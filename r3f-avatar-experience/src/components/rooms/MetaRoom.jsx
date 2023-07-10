@@ -8,6 +8,8 @@ const MetaRoom = ({ groundMaterial }) => {
    * Models
    */
   const { nodes, materials } = useGLTF('./models/rooms/metaRoom.glb');
+  const reactLogo = useGLTF('./models/rooms/reactLogo.gltf');
+  console.log('🚀 ~ MetaRoom ~ reactLogo:', reactLogo);
 
   // Destructured
   const wall = nodes.Wall;
@@ -62,6 +64,52 @@ const MetaRoom = ({ groundMaterial }) => {
           );
         })}
       </group>
+
+      {/* React Logo */}
+      <RigidBody
+        position={[ground.position.x + 1, 1, ground.position.z + 1]}
+        rotation-y={Math.PI * 0.25}
+      >
+        <group>
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={reactLogo.nodes.Cube.geometry}
+            material={textMaterial}
+            position={[0, 1.311, 0]}
+            rotation={[0, Math.PI / 2, 0]}
+            scale={0.266}
+          >
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={reactLogo.nodes.Torus001.geometry}
+              material={textMaterial}
+              position={[0.336, -0.081, 0.024]}
+              rotation={[-0.16, 0, -Math.PI / 2]}
+              scale={[3.754, 1.468, 3.005]}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={reactLogo.nodes.Torus002.geometry}
+              material={textMaterial}
+              position={[-0.515, -0.104, 0.165]}
+              rotation={[-1.179, 0, -Math.PI / 2]}
+              scale={[3.754, 1.468, 3.005]}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={reactLogo.nodes.Torus003.geometry}
+              material={textMaterial}
+              position={[-0.035, -0.107, 0.004]}
+              rotation={[0.89, 0, -Math.PI / 2]}
+              scale={[3.754, 1.468, 3.005]}
+            />
+          </mesh>
+        </group>
+      </RigidBody>
     </group>
   );
 };

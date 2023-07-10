@@ -13,7 +13,6 @@ const ThreeJsJourneyRoom = ({ groundMaterial }) => {
   const wall = nodes.Wall;
   const ground = nodes.Ground;
   const car = nodes.BrunoSimonCar;
-  console.log('🚀 ~ ThreeJsJourneyRoom ~ car:', car);
 
   /**
    * To separate letters and wrap it into RigidBody
