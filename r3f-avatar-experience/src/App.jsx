@@ -41,7 +41,11 @@ function App() {
         <Canvas shadows camera={{ position: [-15, 7, -10], fov: 30 }}>
           <color attach="background" args={['#ececec']} />
           <Suspense fallback={null}>
-            <Physics debug>{phase === 'isStarted' ? <Experience /> : <Start />}</Physics>
+            <Physics
+            // debug
+            >
+              {phase === 'isStarted' ? <Experience /> : <Start />}
+            </Physics>
           </Suspense>
         </Canvas>
         <Loader />
