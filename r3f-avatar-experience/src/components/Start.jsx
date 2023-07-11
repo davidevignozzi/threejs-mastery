@@ -4,18 +4,26 @@ import { Html } from '@react-three/drei';
 
 const Start = () => {
   const state = usePhases((state) => state);
+  const phase = usePhases((state) => state.phase);
+
+  const handlePhase = () => {
+    state.isStarted();
+    console.log(phase);
+  };
 
   return (
-    <Html fullscreen>
-      <div className="start">
-        <div className="container-start">
-          <h1>Want to see my journey as creative front end developer</h1>
-          <button className="button-start" onClick={() => state.isStarted()}>
-            Start
-          </button>
+    phase === 'isReady' && (
+      <Html fullscreen>
+        <div className="start">
+          <div className="container-start">
+            <h1>Want to see my journey as creative front end developer</h1>
+            <button className="button-start" onClick={handlePhase}>
+              Start
+            </button>
+          </div>
         </div>
-      </div>
-    </Html>
+      </Html>
+    )
   );
 };
 

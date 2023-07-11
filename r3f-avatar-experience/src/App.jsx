@@ -1,10 +1,10 @@
+import { Suspense, useEffect, useMemo, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { Experience } from './components/Experience';
-import { Suspense, useMemo } from 'react';
 import { Physics } from '@react-three/rapier';
-import { KeyboardControls, Loader } from '@react-three/drei';
+import { KeyboardControls, Loader, useProgress } from '@react-three/drei';
 import { usePhases } from './stores/store';
 import Start from './components/Start';
+import { Experience } from './components/Experience';
 
 /**
  * Keyboard Controls
@@ -20,7 +20,26 @@ function App() {
   /**
    * Handle Phase
    */
+  const zustandState = usePhases((state) => state);
   const phase = usePhases((state) => state.phase);
+
+  /**
+   * Handle Loading
+   */
+  const { progress } = useProgress();
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    if (progress === 100) {
+      setIsLoaded(true);
+    }
+  }, [progress]);
+
+  useEffect(() => {
+    if (isLoaded) {
+      zustandState.isReady();
+    }
+  }, [isLoaded]);
 
   /**
    * Keyboard Controls Map
@@ -44,7 +63,8 @@ function App() {
             <Physics
             // debug
             >
-              {phase === 'isStarted' ? <Experience /> : <Start />}
+              {phase === 'isStarted' && <Experience />}
+              {phase === 'isReady' && <Start />}
             </Physics>
           </Suspense>
         </Canvas>
