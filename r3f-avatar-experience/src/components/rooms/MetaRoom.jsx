@@ -8,7 +8,7 @@ const MetaRoom = ({ groundMaterial, hitSound }) => {
    * Models
    */
   const { nodes, materials } = useGLTF('./models/rooms/metaRoom.glb');
-  const reactLogo = useGLTF('./models/rooms/reactLogo.gltf');
+  const reactLogo = useGLTF('./models/reactLogo.gltf');
 
   // Destructured
   const wall = nodes.Wall;
@@ -123,3 +123,6 @@ const MetaRoom = ({ groundMaterial, hitSound }) => {
 };
 
 export default MetaRoom;
+
+useGLTF.preload('./models/rooms/metaRoom.glb');
+useGLTF.preload('./models/reactLogo.gltf');

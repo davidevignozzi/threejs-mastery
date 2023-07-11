@@ -100,3 +100,5 @@ const ThreeJsJourneyRoom = ({ groundMaterial, hitSound }) => {
 };
 
 export default ThreeJsJourneyRoom;
+
+useGLTF.preload('./models/rooms/threeJsJourneyRoom.glb');

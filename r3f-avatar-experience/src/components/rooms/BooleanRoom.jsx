@@ -96,3 +96,5 @@ const BooleanRoom = ({ groundMaterial, hitSound }) => {
 };
 
 export default BooleanRoom;
+
+useGLTF.preload('./models/rooms/booleanRoom.glb');

@@ -87,3 +87,5 @@ const EverisRoom = ({ groundMaterial, hitSound }) => {
 };
 
 export default EverisRoom;
+
+useGLTF.preload('./models/rooms/everisRoom.glb');

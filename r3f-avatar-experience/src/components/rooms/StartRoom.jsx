@@ -7,7 +7,7 @@ const StartRoom = ({ hitSound }) => {
    * Models
    */
   const { nodes, materials } = useGLTF('/models/rooms/startRoom.glb');
-  const paintings = useGLTF('/models/rooms/paintings.glb');
+  const paintings = useGLTF('/models/paintings.glb');
 
   // Destructured
   const wall = nodes.Wall;
@@ -108,3 +108,6 @@ const StartRoom = ({ hitSound }) => {
 };
 
 export default StartRoom;
+
+useGLTF.preload('./models/rooms/startRoom.glb');
+useGLTF.preload('./models/paintings.glb');
