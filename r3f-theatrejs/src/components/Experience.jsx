@@ -1,14 +1,14 @@
 import { OrbitControls } from '@react-three/drei';
 
-export const Experience = () => {
+export const Experience = ({ sheet }) => {
   return (
     <>
       {/* CAMERA */}
       <OrbitControls
         position={[40, 10, -40]}
-        lookAt={[0, 0, 0]}
+        lookAt={[0, 20, 0]}
         enableDamping
-        autoRotate
+        // autoRotate
         dampingFactor={0.1}
         minDistance={2.4}
       />
@@ -29,8 +29,8 @@ export const Experience = () => {
       />
 
       {/* FLOOR */}
-      <mesh rotation-x={-Math.PI / 2} receiveShadow>
-        <circleGeometry args={[30, 50]} />
+      <mesh position={[0, -150, 0]} receiveShadow>
+        <cylinderGeometry args={[30, 30, 300, 30]} />
         <meshPhongMaterial color={0xf0f0f0} />
       </mesh>
 
