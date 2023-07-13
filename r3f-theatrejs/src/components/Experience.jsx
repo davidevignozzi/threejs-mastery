@@ -1,12 +1,12 @@
 import { OrbitControls } from '@react-three/drei';
+import { editable as e } from '@theatre/r3f';
 
 export const Experience = ({ sheet }) => {
   return (
     <>
       {/* CAMERA */}
       <OrbitControls
-        position={[40, 10, -40]}
-        lookAt={[0, 20, 0]}
+        lookAt={[0, 10, 0]}
         enableDamping
         // autoRotate
         dampingFactor={0.1}
@@ -35,10 +35,10 @@ export const Experience = ({ sheet }) => {
       </mesh>
 
       {/* BOX */}
-      <mesh castShadow>
+      <e.mesh castShadow theatreKey="Box">
         <boxGeometry args={[10, 10, 10]} />
         <meshPhongMaterial color={0x049ef4} />
-      </mesh>
+      </e.mesh>
     </>
   );
 };
