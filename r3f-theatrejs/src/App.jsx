@@ -1,11 +1,19 @@
-import { Canvas } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { Experience } from './components/Experience';
+// Theatre
+import { getProject, val } from '@theatre/core';
+import { SheetProvider } from '@theatre/r3f';
 
 function App() {
+  const sheet = getProject('Explore Theatre.js').sheet('Demo');
+
   return (
-    <Canvas shadows camera={{ position: [3, 3, 3], fov: 30 }}>
+    <Canvas shadows>
       <color attach="background" args={['#ececec']} />
-      <Experience />
+
+      <SheetProvider sheet={sheet}>
+        <Experience />
+      </SheetProvider>
     </Canvas>
   );
 }
