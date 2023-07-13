@@ -1,13 +1,27 @@
+import * as THREE from 'three';
 import { editable as e, PerspectiveCamera } from '@theatre/r3f';
 
-export const Experience = () => {
+export const Experience = ({ sheet }) => {
+  const cubePosition = new THREE.Vector3(0, 0, 0);
+
   return (
     <>
-      <PerspectiveCamera theatreKey="Camera" makeDefault position={[5, 5, -5]} fov={75} />
+      {/* CAMERA */}
+      <PerspectiveCamera
+        theatreKey="Camera"
+        makeDefault
+        position={[3, 3, -3]}
+        fov={30}
+        lookAt={cubePosition}
+      />
+
+      {/* LIGHTS */}
       <ambientLight />
       <e.pointLight theatreKey="Light" position={[10, 10, 10]} />
-      <e.mesh theatreKey="Cube">
-        <boxGeometry args={[1, 1, 1]} />
+
+      {/* MESH */}
+      <e.mesh theatreKey="Cube" position={cubePosition}>
+        <boxGeometry args={[2, 2, 2]} />
         <meshStandardMaterial color="orange" />
       </e.mesh>
     </>
