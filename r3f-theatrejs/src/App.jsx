@@ -1,24 +1,26 @@
-import { useEffect } from 'react';
+import { PCFSoftShadowMap } from 'three';
 import { Canvas } from '@react-three/fiber';
 import { Experience } from './components/Experience';
 // Theatre
 import { getProject } from '@theatre/core';
 import { SheetProvider } from '@theatre/r3f';
-import state from './state.json';
 
 function App() {
-  const sheet = getProject('Explore Theatre.js', { state: state }).sheet('Demo');
+  const project = getProject('BouncingBox');
 
-  //Animation;
-  useEffect(() => {
-    sheet.project.ready.then(() =>
-      sheet.sequence.play({ iterationCount: Infinity, range: [0, 2] })
-    );
-  }, []);
+  const sheet = project.sheet('AnimationScene');
 
   return (
-    <Canvas shadows gl={{ preserveDrawingBuffer: true }}>
-      <color attach="background" args={['#ececec']} />
+    <Canvas
+      shadows
+      gl={{
+        preserveDrawingBuffer: true,
+        antialias: true,
+        shadowMap: { enabled: true, autoUpdate: true, type: PCFSoftShadowMap }
+      }}
+      camera={{ position: [40, 10, 40] }}
+    >
+      <color attach="background" args={[0x292929]} />
 
       <SheetProvider sheet={sheet}>
         <Experience sheet={sheet} />
