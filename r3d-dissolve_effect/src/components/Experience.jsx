@@ -3,6 +3,8 @@ import { ContactShadows, Environment, OrbitControls } from '@react-three/drei';
 import { DissolveMaterial } from './DissolveMaterial';
 import { useControls } from 'leva';
 import { useState } from 'react';
+import Table from './Table';
+import Chair from './Chair';
 
 const boxMaterial = new THREE.MeshStandardMaterial({ color: '#ffffff' });
 const sphereMaterial = new THREE.MeshStandardMaterial({ color: '#ffffff' });
@@ -11,7 +13,7 @@ export const Experience = () => {
   const { itemDisplayed } = useControls({
     itemDisplayed: {
       value: 'box',
-      options: ['box', 'sphere']
+      options: ['box', 'sphere', 'table', 'chair']
     }
   });
 
@@ -58,6 +60,24 @@ export const Experience = () => {
               color="#00c11e"
             />
           </mesh>
+        )
+      }
+
+      {
+        /**
+         * Table
+         */
+        visibleItem === 'table' && (
+          <Table dissolveVisible={itemDisplayed === 'table'} onFadeOut={onFadeOut} />
+        )
+      }
+
+      {
+        /**
+         * Chair
+         */
+        visibleItem === 'chair' && (
+          <Chair dissolveVisible={itemDisplayed === 'chair'} onFadeOut={onFadeOut} />
         )
       }
 
