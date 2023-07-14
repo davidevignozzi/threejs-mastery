@@ -38,6 +38,7 @@ export const Experience = () => {
               baseMaterial={boxMaterial}
               visible={itemDisplayed === 'box'}
               onFadeOut={onFadeOut}
+              color="#0082b2"
             />
           </mesh>
         )
@@ -54,6 +55,7 @@ export const Experience = () => {
               baseMaterial={sphereMaterial}
               visible={itemDisplayed === 'sphere'}
               onFadeOut={onFadeOut}
+              color="#00c11e"
             />
           </mesh>
         )
