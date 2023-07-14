@@ -1,4 +1,8 @@
+import * as THREE from 'three';
 import { ContactShadows, Environment, OrbitControls } from '@react-three/drei';
+import { DissolveMaterial } from './DissolveMaterial';
+
+const boxMaterial = new THREE.MeshStandardMaterial({ color: '#ffffff' });
 
 export const Experience = () => {
   return (
@@ -8,7 +12,7 @@ export const Experience = () => {
       {/* Cube */}
       <mesh>
         <boxGeometry />
-        <meshStandardMaterial color="#ffffff" />
+        <DissolveMaterial baseMaterial={boxMaterial} />
       </mesh>
 
       {/* Lights */}
