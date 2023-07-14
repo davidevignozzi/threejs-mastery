@@ -3,7 +3,7 @@ import { Experience } from './components/Experience';
 
 function App() {
   return (
-    <Canvas shadows camera={{ position: [3, 3, 3], fov: 30 }}>
+    <Canvas shadows camera={{ position: [3, 3, 5], fov: 42 }}>
       <color attach="background" args={['#ececec']} />
       <Experience />
     </Canvas>
