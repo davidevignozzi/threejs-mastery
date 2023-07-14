@@ -8,6 +8,8 @@ import * as THREE from 'three';
 import * as React from 'react';
 import CSM from 'three-custom-shader-material';
 import { patchShaders } from 'gl-noise';
+import { useFrame } from '@react-three/fiber';
+import { easing } from 'maath';
 
 const vertexShader = /* glsl */ `
   varying vec2 vUv;
@@ -22,46 +24,53 @@ const fragmentShader = patchShaders(/* glsl */ `
 
   uniform float uThickness;
   uniform vec3 uColor;   
+  uniform float uProgress;
 
   void main() {
     gln_tFBMOpts opts = gln_tFBMOpts(1.0, 0.3, 2.0, 5.0, 1.0, 5, false, false);
     float noise = gln_sfbm(vUv, opts);
     noise = gln_normalize(noise);
 
-    float progress = 0.5;
+    float progress = uProgress;
 
     float alpha = step(1.0 - progress, noise);
     float border = step((1.0 - progress) - uThickness, noise) - alpha;
-    
+
     csm_DiffuseColor.a = alpha + border;
     csm_DiffuseColor.rgb = mix(csm_DiffuseColor.rgb, uColor, border);
   }
 `);
 
-const o = new THREE.Object3D();
-o.position.set(-2, 1, 0);
-o.scale.setScalar(0.5);
-o.updateMatrixWorld();
-
-const uniforms = {
-  uMatrix: { value: o.matrixWorld },
-  uFeather: { value: 6 },
-  uThickness: { value: 0.1 },
-  uColor: { value: new THREE.Color('#eb5a13').multiplyScalar(20) }
-};
-
 export function DissolveMaterial({
   baseMaterial,
   thickness = 0.1,
-  feather = 6,
   color = '#eb5a13',
-  intensity = 50
+  intensity = 50,
+  duration = 1.2,
+  visible = true,
+  onFadeOut
 }) {
+  const uniforms = React.useRef({
+    uThickness: { value: 0.1 },
+    uColor: { value: new THREE.Color('#eb5a13').multiplyScalar(20) },
+    uProgress: { value: 0 }
+  });
+
   React.useEffect(() => {
-    uniforms.uFeather.value = feather;
-    uniforms.uThickness.value = thickness;
-    uniforms.uColor.value.set(color).multiplyScalar(intensity);
-  }, [feather, thickness, color, intensity]);
+    uniforms.current.uThickness.value = thickness;
+    uniforms.current.uColor.value.set(color).multiplyScalar(intensity);
+  }, [thickness, color, intensity]);
+
+  /**
+   * Animate the progress (uniform)
+   */
+  useFrame((_, delta) => {
+    easing.damp(uniforms.current.uProgress, 'value', visible ? 1 : 0, duration, delta);
+
+    if (uniforms.current.uProgress.value < 0.1 && onFadeOut) {
+      onFadeOut();
+    }
+  });
 
   return (
     <>
@@ -69,7 +78,7 @@ export function DissolveMaterial({
         baseMaterial={baseMaterial}
         vertexShader={vertexShader}
         fragmentShader={fragmentShader}
-        uniforms={uniforms}
+        uniforms={uniforms.current}
         toneMapped={false}
         transparent
       />
