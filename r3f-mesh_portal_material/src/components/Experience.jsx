@@ -50,6 +50,7 @@ export const Experience = () => {
         texture={'textures/anime_water_world.jpg'}
         name={'Fish King'}
         color={'#38adcf'}
+        position-z={-0.4}
         active={active}
         setActive={setActive}
         hovered={hovered}
