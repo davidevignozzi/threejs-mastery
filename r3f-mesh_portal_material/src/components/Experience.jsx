@@ -17,6 +17,7 @@ import { easing } from 'maath';
 
 export const Experience = () => {
   const [active, setActive] = useState(null);
+  const [hovered, setHovered] = useState(null);
   const controlsRef = useRef();
   const scene = useThree((state) => state.scene);
 
@@ -49,8 +50,10 @@ export const Experience = () => {
         color={'#38adcf'}
         active={active}
         setActive={setActive}
+        hovered={hovered}
+        setHovered={setHovered}
       >
-        <Fish scale={0.6} position-y={-1} />
+        <Fish scale={0.6} position-y={-1} hovered={hovered === 'Fish King'} />
       </MonsterStage>
 
       <MonsterStage
@@ -61,8 +64,10 @@ export const Experience = () => {
         rotation-y={Math.PI / 8}
         active={active}
         setActive={setActive}
+        hovered={hovered}
+        setHovered={setHovered}
       >
-        <Dragon_Evolved scale={0.5} position-y={-1} />
+        <Dragon_Evolved scale={0.5} position-y={-1} hovered={hovered === 'Dragon'} />
       </MonsterStage>
 
       <MonsterStage
@@ -73,14 +78,26 @@ export const Experience = () => {
         rotation-y={-Math.PI / 8}
         active={active}
         setActive={setActive}
+        hovered={hovered}
+        setHovered={setHovered}
       >
-        <Cactoro scale={0.45} position-y={-1} />
+        <Cactoro scale={0.45} position-y={-1} hovered={hovered === 'Cactoro'} />
       </MonsterStage>
     </>
   );
 };
 
-const MonsterStage = ({ children, texture, name, color, active, setActive, ...props }) => {
+const MonsterStage = ({
+  children,
+  texture,
+  name,
+  color,
+  active,
+  setActive,
+  hovered,
+  setHovered,
+  ...props
+}) => {
   /**
    * Texture
    */
@@ -107,6 +124,8 @@ const MonsterStage = ({ children, texture, name, color, active, setActive, ...pr
       <RoundedBox
         name={name}
         args={[2, 3, 0.1]}
+        onPointerEnter={() => setHovered(name)}
+        onPointerLeave={() => setHovered(null)}
         onDoubleClick={() => setActive(active === name ? null : name)}
       >
         <MeshPortalMaterial
