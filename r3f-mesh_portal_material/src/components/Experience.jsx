@@ -3,9 +3,9 @@ import {
   CameraControls,
   Environment,
   MeshPortalMaterial,
-  OrbitControls,
   RoundedBox,
   Text,
+  useCursor,
   useTexture
 } from '@react-three/drei';
 import { Fish } from './Fish';
@@ -20,6 +20,8 @@ export const Experience = () => {
   const [hovered, setHovered] = useState(null);
   const controlsRef = useRef();
   const scene = useThree((state) => state.scene);
+
+  useCursor(hovered);
 
   useEffect(() => {
     if (active) {
