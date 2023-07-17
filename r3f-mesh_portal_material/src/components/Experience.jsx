@@ -10,14 +10,23 @@ import {
 import { Fish } from './Fish';
 import { Dragon_Evolved } from './Dragon_Evolved';
 import { Cactoro } from './Cactoro';
+import { useState } from 'react';
 
 export const Experience = () => {
+  const [active, setActive] = useState(null);
+
   return (
     <>
       <ambientLight intensity={0.5} />
       <Environment preset="sunset" />
       <OrbitControls />
-      <MonsterStage texture={'textures/anime_water_world.jpg'} name={'Fish King'} color={'#38adcf'}>
+      <MonsterStage
+        texture={'textures/anime_water_world.jpg'}
+        name={'Fish King'}
+        color={'#38adcf'}
+        active={active}
+        setActive={setActive}
+      >
         <Fish scale={0.6} position-y={-1} />
       </MonsterStage>
 
@@ -27,6 +36,8 @@ export const Experience = () => {
         color={'#df8d52'}
         position-x={-2.5}
         rotation-y={Math.PI / 8}
+        active={active}
+        setActive={setActive}
       >
         <Dragon_Evolved scale={0.5} position-y={-1} />
       </MonsterStage>
@@ -37,6 +48,8 @@ export const Experience = () => {
         color={'#32c944'}
         position-x={2.5}
         rotation-y={-Math.PI / 8}
+        active={active}
+        setActive={setActive}
       >
         <Cactoro scale={0.45} position-y={-1} />
       </MonsterStage>
@@ -44,7 +57,7 @@ export const Experience = () => {
   );
 };
 
-const MonsterStage = ({ children, texture, name, color, ...props }) => {
+const MonsterStage = ({ children, texture, name, color, active, setActive, ...props }) => {
   /**
    * Texture
    */
@@ -61,8 +74,8 @@ const MonsterStage = ({ children, texture, name, color, ...props }) => {
         {name}
         <meshBasicMaterial color={color} toneMapped={false} />
       </Text>
-      <RoundedBox args={[2, 3, 0.1]}>
-        <MeshPortalMaterial side={THREE.DoubleSide}>
+      <RoundedBox args={[2, 3, 0.1]} onDoubleClick={() => setActive(active === name ? null : name)}>
+        <MeshPortalMaterial side={THREE.DoubleSide} blend={active === name ? 1 : 0}>
           <ambientLight intensity={1} />
           <Environment preset="sunset" />
           {children}
