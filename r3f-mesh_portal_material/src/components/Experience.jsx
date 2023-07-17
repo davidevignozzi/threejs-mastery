@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { Environment, OrbitControls, useTexture } from '@react-three/drei';
+import { Fish } from './Fish';
 
 export const Experience = () => {
   /**
@@ -12,6 +13,8 @@ export const Experience = () => {
       <ambientLight intensity={0.5} />
       <Environment preset="sunset" />
       <OrbitControls />
+
+      <Fish scale={0.6} position-y={-1} />
 
       <mesh>
         <sphereGeometry args={[5, 64, 64]} />
