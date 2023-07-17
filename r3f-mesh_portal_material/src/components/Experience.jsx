@@ -4,6 +4,7 @@ import {
   MeshPortalMaterial,
   OrbitControls,
   RoundedBox,
+  Text,
   useTexture
 } from '@react-three/drei';
 import { Fish } from './Fish';
@@ -16,12 +17,14 @@ export const Experience = () => {
       <ambientLight intensity={0.5} />
       <Environment preset="sunset" />
       <OrbitControls />
-      <MonsterStage texture={'textures/anime_water_world.jpg'}>
+      <MonsterStage texture={'textures/anime_water_world.jpg'} name={'Fish King'} color={'#38adcf'}>
         <Fish scale={0.6} position-y={-1} />
       </MonsterStage>
 
       <MonsterStage
         texture={'textures/anime_erupting_volcano_world.jpg'}
+        name={'Dragon'}
+        color={'#df8d52'}
         position-x={-2.5}
         rotation-y={Math.PI / 8}
       >
@@ -30,6 +33,8 @@ export const Experience = () => {
 
       <MonsterStage
         texture={'textures/anime_cactus_forest_world.jpg'}
+        name={'Cactoro'}
+        color={'#32c944'}
         position-x={2.5}
         rotation-y={-Math.PI / 8}
       >
@@ -39,7 +44,7 @@ export const Experience = () => {
   );
 };
 
-const MonsterStage = ({ children, texture, ...props }) => {
+const MonsterStage = ({ children, texture, name, color, ...props }) => {
   /**
    * Texture
    */
@@ -47,6 +52,15 @@ const MonsterStage = ({ children, texture, ...props }) => {
 
   return (
     <group {...props}>
+      <Text
+        font="fonts/Caprasimo-Regular.ttf"
+        fontSize={0.3}
+        position={[0, -1.4, 0.051]}
+        anchorY={'bottom'}
+      >
+        {name}
+        <meshBasicMaterial color={color} toneMapped={false} />
+      </Text>
       <RoundedBox args={[2, 3, 0.1]}>
         <MeshPortalMaterial side={THREE.DoubleSide}>
           <ambientLight intensity={1} />
