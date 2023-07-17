@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import {
+  CameraControls,
   Environment,
   MeshPortalMaterial,
   OrbitControls,
@@ -10,16 +11,38 @@ import {
 import { Fish } from './Fish';
 import { Dragon_Evolved } from './Dragon_Evolved';
 import { Cactoro } from './Cactoro';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useFrame, useThree } from '@react-three/fiber';
+import { easing } from 'maath';
 
 export const Experience = () => {
   const [active, setActive] = useState(null);
+  const controlsRef = useRef();
+  const scene = useThree((state) => state.scene);
+
+  useEffect(() => {
+    if (active) {
+      const targetPosition = new THREE.Vector3();
+      scene.getObjectByName(active).getWorldPosition(targetPosition);
+      controlsRef.current.setLookAt(
+        0,
+        0,
+        5,
+        targetPosition.x,
+        targetPosition.y,
+        targetPosition.z,
+        true
+      );
+    } else {
+      controlsRef.current.setLookAt(0, 0, 10, 0, 0, 0, true);
+    }
+  }, [active]);
 
   return (
     <>
       <ambientLight intensity={0.5} />
       <Environment preset="sunset" />
-      <OrbitControls />
+      <CameraControls ref={controlsRef} maxPolarAngle={Math.PI / 2} minPolarAngle={Math.PI / 6} />
       <MonsterStage
         texture={'textures/anime_water_world.jpg'}
         name={'Fish King'}
@@ -63,6 +86,13 @@ const MonsterStage = ({ children, texture, name, color, active, setActive, ...pr
    */
   const map = useTexture(texture);
 
+  const portalMaterial = useRef();
+
+  useFrame((_state, delta) => {
+    const worldOpen = active === name;
+    easing.damp(portalMaterial.current, 'blend', worldOpen ? 1 : 0, 0.2, delta);
+  });
+
   return (
     <group {...props}>
       <Text
@@ -74,8 +104,16 @@ const MonsterStage = ({ children, texture, name, color, active, setActive, ...pr
         {name}
         <meshBasicMaterial color={color} toneMapped={false} />
       </Text>
-      <RoundedBox args={[2, 3, 0.1]} onDoubleClick={() => setActive(active === name ? null : name)}>
-        <MeshPortalMaterial side={THREE.DoubleSide} blend={active === name ? 1 : 0}>
+      <RoundedBox
+        name={name}
+        args={[2, 3, 0.1]}
+        onDoubleClick={() => setActive(active === name ? null : name)}
+      >
+        <MeshPortalMaterial
+          ref={portalMaterial}
+          side={THREE.DoubleSide}
+          // blend={active === name ? 1 : 0}
+        >
           <ambientLight intensity={1} />
           <Environment preset="sunset" />
           {children}
