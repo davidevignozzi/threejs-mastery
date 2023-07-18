@@ -8,6 +8,7 @@ const ShadersPractise1 = () => {
         <planeGeometry args={[1, 1, 64, 64]} />
         <practise1ShaderMaterial
           side={THREE.DoubleSide}
+          transparet
           // wireframe
         />
       </mesh>
