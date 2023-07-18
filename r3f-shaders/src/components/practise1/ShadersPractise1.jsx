@@ -1,9 +1,11 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import { useFrame } from '@react-three/fiber';
 import Practise1ShaderMaterial from './practise1ShaderMaterial';
 
 const ShadersPractise1 = () => {
   const planeRef = useRef();
+  const materialRef = useRef();
 
   useEffect(() => {
     const geometry = planeRef?.current?.geometry;
@@ -21,11 +23,21 @@ const ShadersPractise1 = () => {
     geometry?.setAttribute('aRandom', new THREE.BufferAttribute(randoms, 1));
   }, []);
 
+  useFrame((state) => {
+    const elapsedTime = state.clock.getElapsedTime();
+
+    /**
+     * Update material
+     */
+    materialRef.current.uniforms.uTime.value = elapsedTime;
+  });
+
   return (
     <group>
-      <mesh ref={planeRef}>
+      <mesh ref={planeRef} scale-y={2 / 3}>
         <planeGeometry args={[1, 1, 64, 64]} />
         <practise1ShaderMaterial
+          ref={materialRef}
           side={THREE.DoubleSide}
           transparet
           // wireframe
