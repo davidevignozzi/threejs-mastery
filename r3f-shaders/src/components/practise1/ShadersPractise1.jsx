@@ -1,11 +1,15 @@
+import * as THREE from 'three';
 import Practise1ShaderMaterial from './practise1ShaderMaterial';
 
 const ShadersPractise1 = () => {
   return (
     <group>
       <mesh>
-        <planeGeometry />
-        <practise1ShaderMaterial />
+        <planeGeometry args={[1, 1, 64, 64]} />
+        <practise1ShaderMaterial
+          side={THREE.DoubleSide}
+          // wireframe
+        />
       </mesh>
     </group>
   );
