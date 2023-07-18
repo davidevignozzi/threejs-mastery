@@ -1,3 +1,7 @@
+// ? -- Varying -- We can send data from the vertex shader to the fragment shader using varying.
+varying float vRandom;
+
 void main() {
-    gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+    // gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+    gl_FragColor = vec4(0.5, vRandom, 1.0, 1.0);
 }

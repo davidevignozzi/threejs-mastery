@@ -6,8 +6,11 @@
 
 // ? viewMatrix and the modelMatrix are combined into a modelViewMatrix 
 
-// ? -- Attributes are values that change between each vertex
+// ? -- Attributes -- values that change between each vertex
 attribute float aRandom;
+
+// ? -- Varying -- We can send data from the vertex shader to the fragment shader using varying.
+varying float vRandom;
 
 void main() {
 
@@ -26,5 +29,8 @@ void main() {
     // gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); 
 
     gl_Position = projectionPosition;
+
+    // ? put the aRandom value in vRandom to pass it to the fragment shader
+    vRandom = aRandom;
 }
    
