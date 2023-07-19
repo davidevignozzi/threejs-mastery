@@ -1,13 +1,13 @@
-import { OrbitControls } from '@react-three/drei';
+import { Environment, OrbitControls } from '@react-three/drei';
+import AnimationFactory from './AnimationFactory';
 
 export const Experience = () => {
   return (
     <>
-      <OrbitControls />
-      <mesh>
-        <meshNormalMaterial />
-        <boxBufferGeometry />
-      </mesh>
+      <OrbitControls enabled={false} />
+      <ambientLight intensity={1} />
+      <Environment preset="sunset" />
+      <AnimationFactory />
     </>
   );
 };
