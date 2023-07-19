@@ -4,7 +4,7 @@ import { shaderMaterial } from '@react-three/drei';
 import vertexShader from './shaders/vertex.glsl';
 import fragmentShader from './shaders/fragment.glsl';
 
-const Practise1ShaderMaterial = shaderMaterial(
+const PractiseShaderMaterial = shaderMaterial(
   /**
    * Uniforms
    */
@@ -25,6 +25,6 @@ const Practise1ShaderMaterial = shaderMaterial(
   fragmentShader
 );
 
-extend({ Practise1ShaderMaterial });
+extend({ PractiseShaderMaterial });
 
-export default Practise1ShaderMaterial;
+export default PractiseShaderMaterial;

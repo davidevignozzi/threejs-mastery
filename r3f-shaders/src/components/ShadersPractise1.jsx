@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
-import Practise1ShaderMaterial from './practise1ShaderMaterial';
+import PractiseShaderMaterial from './practiseShaderMaterial';
 
 const ShadersPractise1 = () => {
   const planeRef = useRef();
@@ -36,7 +36,7 @@ const ShadersPractise1 = () => {
     <group>
       <mesh ref={planeRef} scale-y={2 / 3}>
         <planeGeometry args={[1, 1, 64, 64]} />
-        <practise1ShaderMaterial
+        <practiseShaderMaterial
           ref={materialRef}
           side={THREE.DoubleSide}
           transparet

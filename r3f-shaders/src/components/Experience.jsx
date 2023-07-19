@@ -1,5 +1,5 @@
 import { OrbitControls } from '@react-three/drei';
-import ShadersPractise1 from './practise1/ShadersPractise1';
+import ShadersPractise from './ShadersPractise1';
 
 export const Experience = () => {
   return (
@@ -7,7 +7,7 @@ export const Experience = () => {
       <OrbitControls />
       <ambientLight intensity={1} />
 
-      <ShadersPractise1 />
+      <ShadersPractise />
     </>
   );
 };
