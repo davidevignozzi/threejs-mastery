@@ -4,7 +4,7 @@ import Heart from './Heart';
 const Experience = () => {
   return (
     <>
-      <OrbitControls />
+      <OrbitControls enableZoom={false} />
 
       <Environment preset="sunset" background blur={0.4} />
 
