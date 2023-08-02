@@ -10,7 +10,7 @@ const Banana = (props) => {
   const { nodes, materials } = useGLTF('/models/banana.glb');
   const group = useRef();
 
-  useExplode(group, { distance: 1 });
+  useExplode(group, { distance: 6 });
 
   return (
     <group {...props} ref={group}>
