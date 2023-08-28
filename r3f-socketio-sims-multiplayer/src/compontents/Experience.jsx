@@ -1,14 +1,14 @@
-import { OrbitControls } from '@react-three/drei';
+import { Environment, OrbitControls } from '@react-three/drei';
+import { AnimatedWoman } from './AnimatedWoman';
 
 const Experience = () => {
   return (
     <>
+      <Environment preset="sunset" />
+      <ambientLight intensity={0.3} />
       <OrbitControls />
 
-      <mesh>
-        <boxGeometry />
-        <meshNormalMaterial />
-      </mesh>
+      <AnimatedWoman />
     </>
   );
 };
