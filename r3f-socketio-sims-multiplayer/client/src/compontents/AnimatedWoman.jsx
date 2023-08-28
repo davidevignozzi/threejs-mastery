@@ -37,8 +37,8 @@ export function AnimatedWoman({
   const [animation, setAnimation] = useState('CharacterArmature|Idle');
 
   useEffect(() => {
-    actions[animation].reset().fadeIn(0.5).play();
-    return () => actions[animation]?.fadeOut(0.5);
+    actions[animation].reset().fadeIn(0.32).play();
+    return () => actions[animation]?.fadeOut(0.32);
   }, [animation]);
 
   useFrame(() => {
