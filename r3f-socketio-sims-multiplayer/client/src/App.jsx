@@ -4,6 +4,7 @@ import { Leva, useControls } from 'leva';
 import { Perf } from 'r3f-perf';
 import { Loader } from '@react-three/drei';
 import Experience from './compontents/Experience';
+import { SocketManager } from './compontents/SocketManager';
 
 function App() {
   /**
@@ -15,6 +16,7 @@ function App() {
 
   return (
     <>
+      <SocketManager />
       <Leva collapsed />
       <Canvas shadows camera={{ position: [8, 8, 8], fov: 30 }}>
         <color attach="background" args={['#ececec']} />
