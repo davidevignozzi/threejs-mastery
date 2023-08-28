@@ -1,9 +1,14 @@
 import { useEffect } from 'react';
 import { io } from 'socket.io-client';
+import { atom, useAtom } from 'jotai';
 
 export const socket = io('http://localhost:3000');
 
+export const charactersAtom = atom([]);
+
 export const SocketManager = () => {
+  const [_characters, setCharacters] = useAtom(charactersAtom);
+
   useEffect(() => {
     function onConnect() {
       console.log('connected');
@@ -19,6 +24,7 @@ export const SocketManager = () => {
 
     function onCharacters(value) {
       console.log('characters', value);
+      setCharacters(value);
     }
 
     socket.on('connect', onConnect);

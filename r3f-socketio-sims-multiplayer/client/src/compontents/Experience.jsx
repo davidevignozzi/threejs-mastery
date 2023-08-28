@@ -3,9 +3,13 @@ import {
   Environment,
   OrbitControls
 } from '@react-three/drei';
+import { useAtom } from 'jotai';
+import { charactersAtom } from './SocketManager';
 import { AnimatedWoman } from './AnimatedWoman';
 
 const Experience = () => {
+  const [characters] = useAtom(charactersAtom);
+
   return (
     <>
       <Environment preset="sunset" />
@@ -13,8 +17,17 @@ const Experience = () => {
       <ContactShadows blur={2} />
       <OrbitControls />
 
-      <AnimatedWoman />
-      <AnimatedWoman position-x={1} hairColor="red" topColor="blue" />
+      {characters.map((character) => {
+        return (
+          <AnimatedWoman
+            key={character.id}
+            position={character.position}
+            hairColor={character.hairColor}
+            topColor={character.topColor}
+            bottomColor={character.bottomColor}
+          />
+        );
+      })}
     </>
   );
 };
