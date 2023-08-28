@@ -1,8 +1,1 @@
-# r3f-vite-template
-
-A boilerplate to build R3F projects
-
-```
-npm install
-npm run dev
-```
+Animated Woman by Quaternius (https://poly.pizza/m/qJ2gsTUBHL)
