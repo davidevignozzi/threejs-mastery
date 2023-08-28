@@ -39,6 +39,17 @@ io.on('connection', (socket) => {
    */
   io.emit('characters', characters);
 
+  /**
+   * Handle Move on click
+   */
+  socket.on('move', (position) => {
+    const character = characters.find(
+      (character) => character.id === socket.id
+    );
+    character.position = position;
+    io.emit('characters', characters);
+  });
+
   socket.on('disconnect', () => {
     console.log('user disconnected');
 

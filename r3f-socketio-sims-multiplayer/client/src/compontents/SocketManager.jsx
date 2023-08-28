@@ -23,7 +23,7 @@ export const SocketManager = () => {
     }
 
     function onCharacters(value) {
-      console.log('characters', value);
+      //   console.log('characters', value);
       setCharacters(value);
     }
 
