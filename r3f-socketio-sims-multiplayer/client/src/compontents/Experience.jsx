@@ -6,13 +6,15 @@ import {
   useCursor
 } from '@react-three/drei';
 import { useAtom } from 'jotai';
-import { charactersAtom, socket } from './SocketManager';
+import { charactersAtom, mapAtom, socket } from './SocketManager';
 import { AnimatedWoman } from './AnimatedWoman';
 import { useState } from 'react';
 import Item from './Item';
 
 const Experience = () => {
   const [characters] = useAtom(charactersAtom);
+  const [map] = useAtom(mapAtom);
+  console.log('🚀 ~ Experience ~ map:', map.items);
 
   /**
    * Overing floor => cursor pointer
@@ -24,26 +26,31 @@ const Experience = () => {
     <>
       <Environment preset="sunset" />
       <ambientLight intensity={0.3} />
-      <ContactShadows blur={2} />
       <OrbitControls />
 
       {/* FLOOR */}
       <mesh
         rotation-x={-Math.PI / 2}
+        position-x={map.size[0] / 2}
         position-y={-0.001}
+        position-z={map.size[1] / 2}
         onClick={(e) => socket.emit('move', [e.point.x, 0, e.point.z])}
         onPointerEnter={() => setOnFloor(true)}
         onPointerLeave={() => setOnFloor(false)}
       >
-        <planeGeometry args={[10, 10]} />
+        <planeGeometry args={map.size} />
         <meshStandardMaterial color="#f0f0f0" />
       </mesh>
 
       {/* ITEMS */}
-      <Item name={'Chair'} />
+      {map.items.map((item, i) => {
+        return <Item key={`${item.name}-${i}`} item={item} />;
+      })}
+
+      {/* <Item name={'Chair'} />
       <Item name={'Couch Small'} />
       <Item name={'Shelf Tall'} />
-      <Item name={'Table'} />
+      <Item name={'Table'} /> */}
 
       {/* CHARACTERS */}
       {characters.map((character) => {
