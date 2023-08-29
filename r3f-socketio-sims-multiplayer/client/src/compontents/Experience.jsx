@@ -57,6 +57,7 @@ const Experience = () => {
         return (
           <AnimatedWoman
             key={character.id}
+            id={character.id}
             // position={character.position}
             position={
               new THREE.Vector3(
