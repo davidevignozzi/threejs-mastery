@@ -32,7 +32,7 @@ const items = {
     size: [3, 6]
   },
 
-  Shelf: {
+  shelf: {
     name: 'Shelf Tall',
     size: [3, 2]
   }
@@ -44,12 +44,25 @@ const map = {
   items: [
     {
       ...items.chair,
-      gridPosition: [4, 4]
+      gridPosition: [12, 10],
+      rotation: 1.5
     },
     {
       ...items.chair,
-      gridPosition: [6, 4],
-      rotation: 3
+      gridPosition: [7, 10],
+      rotation: 2.5
+    },
+    {
+      ...items.table,
+      gridPosition: [9, 9]
+    },
+    {
+      ...items.couch,
+      gridPosition: [4, 4]
+    },
+    {
+      ...items.shelf,
+      gridPosition: [0, 0]
     }
   ]
 };
