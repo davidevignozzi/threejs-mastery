@@ -13,8 +13,44 @@ io.listen(3000);
  */
 const characters = [];
 
+/**
+ * Dictionary of items
+ */
+const items = {
+  table: {
+    name: 'Table',
+    size: [4, 6]
+  },
+
+  chair: {
+    name: 'Chair',
+    size: [2, 2]
+  },
+
+  couch: {
+    name: 'Couch Small',
+    size: [3, 6]
+  },
+
+  Shelf: {
+    name: 'Shelf Tall',
+    size: [3, 2]
+  }
+};
+
+const map = {
+  size: [10, 10],
+  gridDivision: 2,
+  items: [
+    {
+      ...items.chair,
+      gridPosition: [0, 0]
+    }
+  ]
+};
+
 const generateRandomPosition = () => {
-  return [Math.random() * 3, 0, Math.random() * 3];
+  return [Math.random() * map.size[0], 0, Math.random() * map.size[1]];
 };
 
 const generateRandomHexColor = () => {
@@ -32,7 +68,7 @@ io.on('connection', (socket) => {
     bottomColor: generateRandomHexColor()
   });
 
-  socket.emit('hello');
+  socket.emit('hello', { map, characters, id: socket.id, items });
 
   /**
    * To everyone except the user who logged in.
