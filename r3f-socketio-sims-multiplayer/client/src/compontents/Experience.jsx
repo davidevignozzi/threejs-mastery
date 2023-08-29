@@ -9,6 +9,7 @@ import { useAtom } from 'jotai';
 import { charactersAtom, socket } from './SocketManager';
 import { AnimatedWoman } from './AnimatedWoman';
 import { useState } from 'react';
+import Item from './Item';
 
 const Experience = () => {
   const [characters] = useAtom(charactersAtom);
@@ -38,6 +39,13 @@ const Experience = () => {
         <meshStandardMaterial color="#f0f0f0" />
       </mesh>
 
+      {/* ITEMS */}
+      <Item name={'Chair'} />
+      <Item name={'Couch Small'} />
+      <Item name={'Shelf Tall'} />
+      <Item name={'Table'} />
+
+      {/* CHARACTERS */}
       {characters.map((character) => {
         return (
           <AnimatedWoman
