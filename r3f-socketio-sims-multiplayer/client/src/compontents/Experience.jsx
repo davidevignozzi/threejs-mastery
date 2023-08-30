@@ -18,7 +18,7 @@ const Experience = () => {
   const [map] = useAtom(mapAtom);
   const [user] = useAtom(userAtom);
 
-  const { vector3ToGrid } = useGrid();
+  const { vector3ToGrid, gridToVector3 } = useGrid();
 
   /**
    * Overing floor => cursor pointer
@@ -76,15 +76,8 @@ const Experience = () => {
             key={character.id}
             id={character.id}
             // position={character.position}
-            position={
-              new THREE.Vector3(
-                character.position[0] / map.gridDivision +
-                  1 / map.gridDivision / 2,
-                0,
-                character.position[1] / map.gridDivision +
-                  1 / map.gridDivision / 2
-              )
-            }
+            path={character.path}
+            position={gridToVector3(character.position)}
             hairColor={character.hairColor}
             topColor={character.topColor}
             bottomColor={character.bottomColor}

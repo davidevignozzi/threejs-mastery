@@ -524,7 +524,8 @@ io.on('connection', (socket) => {
     character.position = from;
     character.path = path;
     console.log(path);
-    io.emit('characters', characters);
+
+    io.emit('playerMove', character);
   });
 
   socket.on('disconnect', () => {
