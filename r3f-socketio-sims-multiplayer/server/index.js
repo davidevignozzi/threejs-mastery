@@ -470,10 +470,18 @@ const updateGrid = () => {
 
 updateGrid();
 
-console.log(findPath([3, 3], [4, 7]));
-
 const generateRandomPosition = () => {
-  return [Math.random() * map.size[0], 0, Math.random() * map.size[1]];
+  /**
+   * Try 100 times to make it generate a walkable position
+   */
+  for (let i = 0; i < 100; i++) {
+    const x = Math.floor(Math.random() * map.size[0] * map.gridDivision);
+    const y = Math.floor(Math.random() * map.size[1] * map.gridDivision);
+
+    if (grid.isWalkableAt(x, y)) {
+      return [x, y];
+    }
+  }
 };
 
 const generateRandomHexColor = () => {

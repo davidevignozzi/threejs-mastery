@@ -61,9 +61,11 @@ const Experience = () => {
             // position={character.position}
             position={
               new THREE.Vector3(
-                character.position[0],
-                character.position[1], // always 0
-                character.position[2]
+                character.position[0] / map.gridDivision +
+                  1 / map.gridDivision / 2,
+                0,
+                character.position[1] / map.gridDivision +
+                  1 / map.gridDivision / 2
               )
             }
             hairColor={character.hairColor}
