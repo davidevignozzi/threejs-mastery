@@ -509,11 +509,21 @@ io.on('connection', (socket) => {
   /**
    * Handle Move on click
    */
-  socket.on('move', (position) => {
+  socket.on('move', (from, to) => {
     const character = characters.find(
       (character) => character.id === socket.id
     );
-    character.position = position;
+
+    const path = findPath(from, to);
+
+    // No path no party
+    if (!path) {
+      return;
+    }
+
+    character.position = from;
+    character.path = path;
+    console.log(path);
     io.emit('characters', characters);
   });
 

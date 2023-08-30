@@ -1,26 +1,48 @@
-import * as THREE from 'three';
-import {
-  ContactShadows,
-  Environment,
-  OrbitControls,
-  useCursor
-} from '@react-three/drei';
-import { useAtom } from 'jotai';
-import { charactersAtom, mapAtom, socket } from './SocketManager';
-import { AnimatedWoman } from './AnimatedWoman';
 import { useState } from 'react';
+import * as THREE from 'three';
+import { useThree } from '@react-three/fiber';
+import { Environment, OrbitControls, useCursor } from '@react-three/drei';
+import { useAtom } from 'jotai';
+import { useGrid } from '../hooks/useGrid';
+import {
+  charactersAtom,
+  mapAtom,
+  socket,
+  userAtom
+} from './SocketManager';
 import Item from './Item';
+import { AnimatedWoman } from './AnimatedWoman';
 
 const Experience = () => {
   const [characters] = useAtom(charactersAtom);
   const [map] = useAtom(mapAtom);
-  console.log('🚀 ~ Experience ~ map:', map.items);
+  const [user] = useAtom(userAtom);
+
+  const { vector3ToGrid } = useGrid();
 
   /**
    * Overing floor => cursor pointer
    */
   const [onFloor, setOnFloor] = useState(false);
   useCursor(onFloor);
+
+  const scene = useThree((state) => state.scene);
+
+  /**
+   * To move the character
+   */
+  const onCharacterMove = (e) => {
+    const character = scene.getObjectByName(`character-${user}`);
+    if (!character) {
+      return;
+    }
+
+    socket.emit(
+      'move',
+      vector3ToGrid(character.position),
+      vector3ToGrid(e.point)
+    );
+  };
 
   return (
     <>
@@ -34,7 +56,7 @@ const Experience = () => {
         position-x={map.size[0] / 2}
         position-y={-0.001}
         position-z={map.size[1] / 2}
-        onClick={(e) => socket.emit('move', [e.point.x, 0, e.point.z])}
+        onClick={onCharacterMove}
         onPointerEnter={() => setOnFloor(true)}
         onPointerLeave={() => setOnFloor(false)}
       >
@@ -46,11 +68,6 @@ const Experience = () => {
       {map.items.map((item, i) => {
         return <Item key={`${item.name}-${i}`} item={item} />;
       })}
-
-      {/* <Item name={'Chair'} />
-      <Item name={'Couch Small'} />
-      <Item name={'Shelf Tall'} />
-      <Item name={'Table'} /> */}
 
       {/* CHARACTERS */}
       {characters.map((character) => {
