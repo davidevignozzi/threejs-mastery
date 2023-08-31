@@ -5,8 +5,15 @@ import { SkeletonUtils } from 'three-stdlib';
 import { mapAtom } from './SocketManager';
 import { useGrid } from '../hooks/useGrid';
 
-const Item = ({ item, onClick, isDragging, dragPosition, canDrop }) => {
-  const { name, gridPosition, size, rotation } = item;
+const Item = ({
+  item,
+  onClick,
+  isDragging,
+  dragPosition,
+  dragRotation,
+  canDrop
+}) => {
+  const { name, gridPosition, size, rotation: itemRotation } = item;
 
   const { gridToVector3 } = useGrid();
 
@@ -16,6 +23,9 @@ const Item = ({ item, onClick, isDragging, dragPosition, canDrop }) => {
 
   // Skinned meshes cannot be re-used in threejs without cloning them
   const clone = useMemo(() => SkeletonUtils.clone(scene), [scene]);
+
+  // Rotation
+  const rotation = isDragging ? dragRotation : itemRotation;
 
   const width = rotation === 1 || rotation === 3 ? size[1] : size[0];
   const height = rotation === 1 || rotation === 3 ? size[0] : size[1];

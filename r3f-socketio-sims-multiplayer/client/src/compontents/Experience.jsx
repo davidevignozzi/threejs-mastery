@@ -10,6 +10,11 @@ import {
   socket,
   userAtom
 } from './SocketManager';
+import {
+  buildModeAtom,
+  draggedItemAtom,
+  draggedItemRotationAtom
+} from './UI';
 import Item from './Item';
 import { AnimatedWoman } from './AnimatedWoman';
 
@@ -23,9 +28,12 @@ const Experience = () => {
   /**
    * For build mode
    */
-  const [buildMode, setBuildMode] = useState(true);
+  const [buildMode, setBuildMode] = useAtom(buildModeAtom);
   // ⤵ will be the index of the item we are currently dragging
-  const [draggedItem, setDraggedItem] = useState(null);
+  const [draggedItem, setDraggedItem] = useAtom(draggedItemAtom);
+  const [draggedItemRotation, setDraggedItemRotation] = useAtom(
+    draggedItemRotationAtom
+  );
   const [dragPosition, setDragPosition] = useState(null);
   const [items, setItems] = useState(map.items);
   const [canDrop, setCanDrop] = useState(false);
@@ -66,6 +74,7 @@ const Experience = () => {
           setItems((prev) => {
             const newItems = [...prev];
             newItems[draggedItem].gridPosition = vector3ToGrid(e.point);
+            newItems[draggedItem].rotation = draggedItemRotation;
             return newItems;
           });
         }
@@ -193,11 +202,15 @@ const Experience = () => {
           <Item
             key={`${item.name}-${idx}`}
             item={item}
-            onClick={() =>
-              setDraggedItem((prev) => (prev === null ? idx : prev))
-            }
+            onClick={() => {
+              if (buildMode) {
+                setDraggedItem((prev) => (prev === null ? idx : prev));
+                setDraggedItemRotation(item.rotation || 0);
+              }
+            }}
             isDragging={draggedItem === idx}
             dragPosition={dragPosition}
+            dragRotation={draggedItemRotation}
             canDrop={canDrop}
           />
         );
