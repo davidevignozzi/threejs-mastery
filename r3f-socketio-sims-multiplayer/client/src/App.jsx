@@ -5,6 +5,7 @@ import { Perf } from 'r3f-perf';
 import { Loader } from '@react-three/drei';
 import Experience from './compontents/Experience';
 import { SocketManager } from './compontents/SocketManager';
+import { UI } from './compontents/UI';
 
 function App() {
   /**
@@ -25,6 +26,7 @@ function App() {
           <Experience />
         </Suspense>
       </Canvas>
+      <UI />
       <Loader />
     </>
   );
