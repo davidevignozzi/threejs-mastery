@@ -174,8 +174,11 @@ const Experience = () => {
    */
   useEffect(() => {
     if (buildMode) {
+      setItems(map?.items || []);
       state.camera.position.set(18, 9, 18);
       controls.current.target.set(5, 0, 5);
+    } else {
+      socket.emit('itemsUpdate', items);
     }
   }, [buildMode]);
 

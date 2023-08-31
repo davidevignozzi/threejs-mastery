@@ -442,6 +442,13 @@ const findPath = (start, end) => {
 };
 
 const updateGrid = () => {
+  // RESET
+  for (let x = 0; x < map.size[0] * map.gridDivision; x++) {
+    for (let y = 0; y < map.size[1] * map.gridDivision; y++) {
+      grid.setWalkableAt(x, y, true);
+    }
+  }
+
   map.items.forEach((item) => {
     if (item.walkable || item.wall) {
       return;
@@ -523,9 +530,27 @@ io.on('connection', (socket) => {
 
     character.position = from;
     character.path = path;
-    console.log(path);
+    // console.log(path);
 
     io.emit('playerMove', character);
+  });
+
+  socket.on('itemsUpdate', (items) => {
+    // update items
+    map.items = items;
+
+    // update character position
+    characters.forEach((character) => {
+      character.path = [];
+      character.position = generateRandomPosition();
+    });
+
+    updateGrid();
+
+    io.emit('mapUpdate', {
+      map,
+      characters
+    });
   });
 
   socket.on('disconnect', () => {
