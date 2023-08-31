@@ -1,9 +1,10 @@
-import { useMemo } from 'react';
-import { useGLTF } from '@react-three/drei';
+import { useMemo, useState } from 'react';
+import { useCursor, useGLTF } from '@react-three/drei';
 import { useAtom } from 'jotai';
 import { SkeletonUtils } from 'three-stdlib';
 import { mapAtom } from './SocketManager';
 import { useGrid } from '../hooks/useGrid';
+import { buildModeAtom } from './UI';
 
 const Item = ({
   item,
@@ -18,6 +19,10 @@ const Item = ({
   const { gridToVector3 } = useGrid();
 
   const [map] = useAtom(mapAtom);
+  const [buildMode] = useAtom(buildModeAtom);
+
+  // For cursor
+  const [hover, setHover] = useState(false);
 
   const { scene } = useGLTF(`models/items/${name}.glb`);
 
@@ -30,6 +35,11 @@ const Item = ({
   const width = rotation === 1 || rotation === 3 ? size[1] : size[0];
   const height = rotation === 1 || rotation === 3 ? size[0] : size[1];
 
+  /**
+   * cursor logic
+   */
+  useCursor(buildMode ? hover : undefined);
+
   return (
     <group
       position={gridToVector3(
@@ -37,6 +47,8 @@ const Item = ({
         width,
         height
       )}
+      onPointerEnter={() => setHover(true)}
+      onPointerLeave={() => setHover(false)}
       onClick={onClick}
     >
       <primitive
