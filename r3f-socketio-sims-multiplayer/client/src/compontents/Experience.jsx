@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { useThree } from '@react-three/fiber';
 import { Environment, OrbitControls, useCursor } from '@react-three/drei';
@@ -163,11 +163,34 @@ const Experience = () => {
     setCanDrop(droppable);
   }, [dragPosition, draggedItem, items]);
 
+  /**
+   * Camera
+   */
+  const controls = useRef();
+  const state = useThree((state) => state);
+
+  /**
+   * camera position in build mode
+   */
+  useEffect(() => {
+    if (buildMode) {
+      state.camera.position.set(18, 9, 18);
+      controls.current.target.set(5, 0, 5);
+    }
+  }, [buildMode]);
+
   return (
     <>
       <Environment preset="sunset" />
       <ambientLight intensity={0.3} />
-      <OrbitControls />
+      <OrbitControls
+        ref={controls}
+        minDistance={5}
+        maxDistance={20}
+        minPolarAngle={0}
+        maxPolarAngle={Math.PI / 2}
+        screenSpacePanning={false}
+      />
 
       {/* FLOOR */}
       <mesh
