@@ -42,7 +42,7 @@ const Experience = () => {
   const [draggedItemRotation, setDraggedItemRotation] = useAtom(
     draggedItemRotationAtom
   );
-  const [dragPosition, setDragPosition] = useState(null);
+  const [dragPosition, setDragPosition] = useState([0, 0]);
   const [items, setItems] = useState(map.items);
   const [canDrop, setCanDrop] = useState(false);
 
@@ -81,6 +81,7 @@ const Experience = () => {
         if (canDrop) {
           setItems((prev) => {
             const newItems = [...prev];
+            delete newItems[draggedItem].tmp;
             newItems[draggedItem].gridPosition = vector3ToGrid(e.point);
             newItems[draggedItem].rotation = draggedItemRotation;
             return newItems;
@@ -203,6 +204,26 @@ const Experience = () => {
     }
   }, [shopMode]);
 
+  const onItemSelected = (item) => {
+    setShopMode(false);
+    setItems((prev) => [
+      ...prev,
+      {
+        ...item,
+        gridPosition: [0, 0],
+        tmp: true
+      }
+    ]);
+    setDraggedItem(items.length);
+    setDraggedItemRotation(0);
+  };
+
+  useEffect(() => {
+    if (draggedItem === null) {
+      setItems((prev) => prev.filter((item) => !item.tmp));
+    }
+  }, [draggedItem]);
+
   return (
     <>
       {/* LIGHTS */}
@@ -233,7 +254,7 @@ const Experience = () => {
       />
 
       {/* SHOP */}
-      {shopMode && <Shop />}
+      {shopMode && <Shop onItemSelected={onItemSelected} />}
 
       {/* FLOOR */}
       {!shopMode && (
