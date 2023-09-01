@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useCursor, useGLTF } from '@react-three/drei';
 import { useAtom } from 'jotai';
 import { SkeletonUtils } from 'three-stdlib';
@@ -39,6 +39,18 @@ const Item = ({
    * cursor logic
    */
   useCursor(buildMode ? hover : undefined);
+
+  /**
+   * Shadows
+   */
+  useEffect(() => {
+    clone.traverse((child) => {
+      if (child.isMesh) {
+        child.castShadow = true;
+        child.receiveShadow = true;
+      }
+    });
+  }, []);
 
   return (
     <group

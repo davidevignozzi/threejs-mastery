@@ -191,8 +191,23 @@ const Experience = () => {
 
   return (
     <>
+      {/* LIGHTS */}
       <Environment preset="sunset" />
-      <ambientLight intensity={0.3} />
+      <ambientLight intensity={0.1} />
+      <directionalLight
+        position={[-4, 4, -4]}
+        castShadow
+        intensity={0.35}
+        shadow-mapSize={[1024, 1024]}
+      >
+        <orthographicCamera
+          attach={'shadow-camera'}
+          args={[-map.size[0], map.size[1], 10, -10]}
+          far={map.size[0] + map.size[1]}
+        />
+      </directionalLight>
+
+      {/* CAMERA */}
       <OrbitControls
         ref={controls}
         minDistance={5}
@@ -208,6 +223,7 @@ const Experience = () => {
         position-x={map.size[0] / 2}
         position-y={-0.001}
         position-z={map.size[1] / 2}
+        receiveShadow
         onPointerEnter={() => setOnFloor(true)}
         onPointerLeave={() => setOnFloor(false)}
         onPointerMove={(e) => {
