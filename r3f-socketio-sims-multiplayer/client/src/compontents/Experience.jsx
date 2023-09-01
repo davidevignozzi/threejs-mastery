@@ -23,6 +23,7 @@ import {
 } from './UI';
 import Item from './Item';
 import { AnimatedWoman } from './AnimatedWoman';
+import Shop from './Shop';
 
 const Experience = () => {
   const { vector3ToGrid, gridToVector3 } = useGrid();
@@ -189,6 +190,19 @@ const Experience = () => {
     }
   }, [buildMode]);
 
+  /**
+   * camera position in shop mode
+   */
+  useEffect(() => {
+    if (shopMode) {
+      state.camera.position.set(0, 3, 8);
+      controls.current.target.set(0, 0, 0);
+    } else {
+      state.camera.position.set(18, 9, 18);
+      controls.current.target.set(5, 0, 5);
+    }
+  }, [shopMode]);
+
   return (
     <>
       {/* LIGHTS */}
@@ -210,6 +224,7 @@ const Experience = () => {
       {/* CAMERA */}
       <OrbitControls
         ref={controls}
+        enableZoom={!shopMode}
         minDistance={5}
         maxDistance={20}
         minPolarAngle={0}
@@ -217,33 +232,38 @@ const Experience = () => {
         screenSpacePanning={false}
       />
 
+      {/* SHOP */}
+      {shopMode && <Shop />}
+
       {/* FLOOR */}
-      <mesh
-        rotation-x={-Math.PI / 2}
-        position-x={map.size[0] / 2}
-        position-y={-0.001}
-        position-z={map.size[1] / 2}
-        receiveShadow
-        onPointerEnter={() => setOnFloor(true)}
-        onPointerLeave={() => setOnFloor(false)}
-        onPointerMove={(e) => {
-          if (!buildMode) {
-            return;
-          }
-          const newPosition = vector3ToGrid(e.point);
-          if (
-            !dragPosition ||
-            newPosition[0] !== dragPosition[0] ||
-            newPosition[1] !== dragPosition[1]
-          ) {
-            setDragPosition(newPosition);
-          }
-        }}
-        onClick={onPlaneCliccked}
-      >
-        <planeGeometry args={map.size} />
-        <meshStandardMaterial color="#f0f0f0" />
-      </mesh>
+      {!shopMode && (
+        <mesh
+          rotation-x={-Math.PI / 2}
+          position-x={map.size[0] / 2}
+          position-y={-0.001}
+          position-z={map.size[1] / 2}
+          receiveShadow
+          onPointerEnter={() => setOnFloor(true)}
+          onPointerLeave={() => setOnFloor(false)}
+          onPointerMove={(e) => {
+            if (!buildMode) {
+              return;
+            }
+            const newPosition = vector3ToGrid(e.point);
+            if (
+              !dragPosition ||
+              newPosition[0] !== dragPosition[0] ||
+              newPosition[1] !== dragPosition[1]
+            ) {
+              setDragPosition(newPosition);
+            }
+          }}
+          onClick={onPlaneCliccked}
+        >
+          <planeGeometry args={map.size} />
+          <meshStandardMaterial color="#f0f0f0" />
+        </mesh>
+      )}
 
       {/* GRID */}
       {buildMode && !shopMode && (
@@ -251,24 +271,25 @@ const Experience = () => {
       )}
 
       {/* ITEMS */}
-      {(buildMode ? items : map.items).map((item, idx) => {
-        return (
-          <Item
-            key={`${item.name}-${idx}`}
-            item={item}
-            onClick={() => {
-              if (buildMode) {
-                setDraggedItem((prev) => (prev === null ? idx : prev));
-                setDraggedItemRotation(item.rotation || 0);
-              }
-            }}
-            isDragging={draggedItem === idx}
-            dragPosition={dragPosition}
-            dragRotation={draggedItemRotation}
-            canDrop={canDrop}
-          />
-        );
-      })}
+      {!shopMode &&
+        (buildMode ? items : map.items).map((item, idx) => {
+          return (
+            <Item
+              key={`${item.name}-${idx}`}
+              item={item}
+              onClick={() => {
+                if (buildMode) {
+                  setDraggedItem((prev) => (prev === null ? idx : prev));
+                  setDraggedItemRotation(item.rotation || 0);
+                }
+              }}
+              isDragging={draggedItem === idx}
+              dragPosition={dragPosition}
+              dragRotation={draggedItemRotation}
+              canDrop={canDrop}
+            />
+          );
+        })}
 
       {/* CHARACTERS */}
       {!buildMode &&
