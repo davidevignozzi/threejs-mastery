@@ -1,7 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { useThree } from '@react-three/fiber';
-import { Environment, OrbitControls, useCursor } from '@react-three/drei';
+import {
+  Environment,
+  Grid,
+  OrbitControls,
+  useCursor
+} from '@react-three/drei';
 import { useAtom } from 'jotai';
 import { useGrid } from '../hooks/useGrid';
 import {
@@ -12,6 +17,7 @@ import {
 } from './SocketManager';
 import {
   buildModeAtom,
+  shopModeAtom,
   draggedItemAtom,
   draggedItemRotationAtom
 } from './UI';
@@ -26,9 +32,10 @@ const Experience = () => {
   const [user] = useAtom(userAtom);
 
   /**
-   * For build mode
+   * For build & shop mode
    */
   const [buildMode, setBuildMode] = useAtom(buildModeAtom);
+  const [shopMode, setShopMode] = useAtom(shopModeAtom);
   // ⤵ will be the index of the item we are currently dragging
   const [draggedItem, setDraggedItem] = useAtom(draggedItemAtom);
   const [draggedItemRotation, setDraggedItemRotation] = useAtom(
@@ -221,6 +228,11 @@ const Experience = () => {
         <planeGeometry args={map.size} />
         <meshStandardMaterial color="#f0f0f0" />
       </mesh>
+
+      {/* GRID */}
+      {buildMode && !shopMode && (
+        <Grid infiniteGrid fadeDistance={50} fadeStrength={5} />
+      )}
 
       {/* ITEMS */}
       {(buildMode ? items : map.items).map((item, idx) => {
